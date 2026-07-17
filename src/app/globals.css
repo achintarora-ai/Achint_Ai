@@ -1,26 +1,146 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f5f6f8;
+  --foreground: #1c2430;
+  --surface: #ffffff;
+  --muted: #5b6575;
+  --border: #d7dde7;
+  --accent: #0f5c45;
+  --accent-soft: #d9ebe3;
+  --blue: #2f5d8c;
+  --grid: #dfe5ee;
+}
+
+.dark {
+  --background: #0f141a;
+  --foreground: #e8edf4;
+  --surface: #171e27;
+  --muted: #9aa6b8;
+  --border: #2a3442;
+  --accent: #3f9f78;
+  --accent-soft: #1d3a30;
+  --blue: #6ea0d4;
+  --grid: #243041;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), "Segoe UI", sans-serif;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--accent) 28%, white);
+}
+
+.prose-portfolio {
+  color: var(--foreground);
+  line-height: 1.75;
+}
+
+.prose-portfolio h2,
+.prose-portfolio h3,
+.prose-portfolio h4 {
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.prose-portfolio p,
+.prose-portfolio ul,
+.prose-portfolio ol,
+.prose-portfolio blockquote,
+.prose-portfolio pre,
+.prose-portfolio table {
+  margin-bottom: 1rem;
+}
+
+.prose-portfolio ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+
+.prose-portfolio ol {
+  list-style: decimal;
+  padding-left: 1.25rem;
+}
+
+.prose-portfolio a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose-portfolio code {
+  border-radius: 0.35rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.1rem 0.35rem;
+  font-size: 0.9em;
+}
+
+.prose-portfolio pre {
+  overflow-x: auto;
+  border-radius: 0.85rem;
+  border: 1px solid var(--border);
+  background: #111827;
+  color: #e5e7eb;
+  padding: 1rem;
+}
+
+.prose-portfolio pre code {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.prose-portfolio blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+  color: var(--muted);
+}
+
+.prose-portfolio table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.prose-portfolio th,
+.prose-portfolio td {
+  border: 1px solid var(--border);
+  padding: 0.55rem 0.7rem;
+  text-align: left;
+}
+
+.prose-portfolio th {
+  background: var(--surface);
 }
