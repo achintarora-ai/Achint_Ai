@@ -33,7 +33,8 @@ jobs:
         run: npm run build
         env:
           GITHUB_PAGES: "true"
-          NEXT_PUBLIC_SITE_URL: https://achintpalsingh.github.io
+          GITHUB_PAGES_BASE_PATH: /Achint_Ai
+          NEXT_PUBLIC_SITE_URL: https://achintarora-ai.github.io/Achint_Ai
           NEXT_PUBLIC_GITHUB_URL: https://github.com/achintarora-ai/Achint_Ai
           NEXT_PUBLIC_LINKEDIN_URL: https://www.linkedin.com/in/achint-pal-singh-1a0114288/
 
