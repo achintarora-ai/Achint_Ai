@@ -29,10 +29,13 @@ export default function ContactPage() {
               <li>
                 <a
                   href={`mailto:${siteConfig.email}`}
-                  className="inline-flex items-center gap-2 hover:text-[var(--accent)]"
+                  className="inline-flex items-center gap-2 hover:text-[var(--claude)]"
                 >
                   <Mail className="h-4 w-4" /> {siteConfig.email}
                 </a>
+              </li>
+              <li className="text-[var(--muted)]">
+                Phone: {siteConfig.phone}
               </li>
               <li>
                 <a

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { callOpenRouter } from "@/lib/openrouter";
+import { callPortfolioLlm } from "@/lib/llm";
 import { rateLimit } from "@/lib/rate-limit";
 import {
   formatContextForPrompt,
@@ -22,12 +22,24 @@ const bodySchema = z.object({
     .optional(),
 });
 
-const SYSTEM_PROMPT = `You are the portfolio assistant for Achint Pal Singh. Answer using the supplied portfolio context. Be accurate, concise, and transparent. Never invent employment, education, skills, metrics, certifications, or project functionality. Clearly distinguish professional experience, academic study, research, prototypes, and technologies explored. When information is unavailable, say so. Do not provide legal advice. When discussing WeKnowRights, describe it as a legal-information and workflow platform, not a law firm or substitute for a lawyer. Where possible, direct users to relevant projects, research, résumé, GitHub, LinkedIn, or contact information.
+const SYSTEM_PROMPT = `You are Ask Achint AI, the portfolio assistant for Achint Pal Singh (AI Engineer, Toronto).
 
+Answer using the supplied portfolio context first. Be accurate, concise, and recruiter-friendly.
+When relevant, recommend Achint's blog posts at /blogs/[slug] — especially vector search, RAG cost, Claude Fable 5, and healthcare compliance posts.
+Never invent employment, education, skills, metrics, certifications, or project functionality.
+Clearly distinguish professional experience, academic study, research, prototypes, and technologies explored.
+When information is unavailable, say so.
+Do not provide legal advice. WeKnowRights is a legal-information and workflow platform, not a law firm.
+Direct users to relevant blogs, projects, research pages, résumé, GitHub, LinkedIn, email, or /contact when useful.
+
+Email: ${siteConfig.email}
 GitHub: ${siteConfig.social.github}
 LinkedIn: ${siteConfig.social.linkedin}
+Blogs: /blogs
 Contact: /contact
-Résumé: ${siteConfig.resumePath}`;
+Résumé: /resume
+PDF: ${siteConfig.resumePath}
+DOCX: ${siteConfig.resumeDocxPath}`;
 
 function clientKey(request: NextRequest) {
   return (
@@ -45,10 +57,14 @@ function localFallbackAnswer(message: string, context: string) {
   if (lower.includes("rag") || lower.includes("vector")) {
     return "Achint has hands-on RAG experience through WeKnowRights and published vector-search benchmarking research covering embeddings, FAISS, Qdrant, ChromaDB, Azure AI Search, latency, recall, and cost. Start with /research/benchmarking-vector-search-startup-chatbots.";
   }
-  if (lower.includes("available") || lower.includes("hire") || lower.includes("opportunit")) {
-    return `${siteConfig.availability} You can reach him via the contact page, LinkedIn, or GitHub.`;
+  if (
+    lower.includes("available") ||
+    lower.includes("hire") ||
+    lower.includes("opportunit")
+  ) {
+    return `${siteConfig.availability} Reach him via /contact, LinkedIn, or GitHub.`;
   }
-  return `I can answer from Achint’s portfolio knowledge even without a live model key. Relevant context:\n\n${context.slice(0, 1200)}\n\nAsk about experience, WeKnowRights, RAG research, cloud skills, or availability—or add OPENROUTER_API_KEY for fuller conversational answers.`;
+  return `Live model keys are temporarily unavailable, so here is portfolio-grounded context:\n\n${context.slice(0, 1200)}`;
 }
 
 export async function POST(request: NextRequest) {
@@ -110,7 +126,7 @@ export async function POST(request: NextRequest) {
     { role: "user" as const, content: message },
   ];
 
-  const result = await callOpenRouter({ messages, maxTokens: 700 });
+  const result = await callPortfolioLlm({ messages, maxTokens: 750 });
 
   if (!result.ok) {
     if (result.reason === "missing_key") {
@@ -135,5 +151,6 @@ export async function POST(request: NextRequest) {
     sources: [...sources, ...webSources],
     mode: "live",
     model: result.model,
+    provider: result.provider,
   });
 }

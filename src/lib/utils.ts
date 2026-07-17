@@ -12,3 +12,11 @@ export function formatDate(date: string) {
     day: "numeric",
   }).format(new Date(date));
 }
+
+export function isBlogPoster(coverImage?: string) {
+  return Boolean(coverImage?.includes("-poster"));
+}
+
+export function coverImageClass(coverImage?: string) {
+  return isBlogPoster(coverImage) ? "object-contain" : "object-cover";
+}

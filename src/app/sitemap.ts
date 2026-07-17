@@ -1,18 +1,18 @@
 import type { MetadataRoute } from "next";
+import { blogPosts } from "@/data/blogs";
 import { projects } from "@/data/projects";
-import { researchArticles } from "@/data/research";
 import { siteConfig } from "@/data/site-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.social.siteUrl;
   const staticRoutes = [
     "",
-    "/about",
+    "/skills",
     "/experience",
     "/projects",
-    "/research",
-    "/skills",
+    "/blogs",
     "/assistant",
+    "/resume",
     "/contact",
   ].map((path) => ({
     url: `${base}${path}`,
@@ -24,10 +24,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
-  const researchRoutes = researchArticles.map((article) => ({
-    url: `${base}/research/${article.slug}`,
-    lastModified: new Date(article.date),
+  const blogRoutes = blogPosts.map((post) => ({
+    url: `${base}/blogs/${post.slug}`,
+    lastModified: new Date(post.date),
   }));
 
-  return [...staticRoutes, ...projectRoutes, ...researchRoutes];
+  return [...staticRoutes, ...projectRoutes, ...blogRoutes];
 }

@@ -26,6 +26,7 @@ export type ResearchArticle = {
   tags: string[];
   categories: ResearchCategory[];
   status: ResearchStatus;
+  coverImage?: string;
   pdfPath?: string;
   externalUrl?: string;
   excerptMarkdown: string;
@@ -55,15 +56,28 @@ export const researchArticles: ResearchArticle[] = [
     ],
     categories: ["RAG", "Vector Search", "AI Economics"],
     status: "Benchmark",
+    coverImage: "/images/blog/vector-search-poster.png",
     pdfPath: "/research/vector-search-research.pdf",
     excerptMarkdown: `
 ## Overview
 
 This independent research benchmarks embedding–database combinations for startup RAG chatbots operating under practical constraints: low latency, high recall, and monthly AI budgets often below $100.
 
-## Problem
+## Research question
 
-Teams face decision paralysis across dozens of embedding models and vector databases. Without reproducible benchmarks, it is difficult to choose a configuration that balances latency, accuracy, and cost.
+Under startup constraints (<$100/month, interactive latency, high recall), which combination of embedding model and vector database delivers the best balance of performance, scalability, and cost?
+
+## Systems under test
+
+Representative configurations included:
+
+| ID | Embedding | Vector DB | Notes |
+| --- | --- | --- | --- |
+| C1 | SentenceTransformer MiniLM | FAISS | Fastest local baseline |
+| C2 | SentenceTransformer | ChromaDB | Lightweight local stack |
+| C3 | SentenceTransformer | Qdrant | Managed/local scalable option |
+| C5 | OpenAI text-embedding-3-large | FAISS | Higher semantic precision |
+| C7 | SentenceTransformer | Azure AI Search | Enterprise managed search |
 
 ## Method
 
@@ -79,9 +93,9 @@ Teams face decision paralysis across dozens of embedding models and vector datab
 - Managed search services trade higher operating cost for enterprise scaling, security, and operational features.
 - A three-tier deployment framing—Prototype, Production, and Enterprise—helps teams evolve architecture as traffic and compliance needs grow.
 
-## Why it matters
+## Why it matters for recruiters
 
-The work gives founders and AI engineers a practical decision framework for RAG architecture selection instead of relying on vendor claims alone.
+This is not a toy demo. It shows Achint can evaluate retrieval systems the way production teams do: with explicit metrics, cost models, and architecture tiers.
 `.trim(),
   },
   {
@@ -102,6 +116,7 @@ The work gives founders and AI engineers a practical decision framework for RAG 
     ],
     categories: ["RAG", "Vector Search"],
     status: "Research",
+    coverImage: "/images/blog/vector-search-poster.png",
     pdfPath: "/research/vector-search-research.pdf",
     excerptMarkdown: `
 ## Focus
@@ -141,6 +156,7 @@ Production RAG is not only about picking the “best” embedding. It requires c
     ],
     categories: ["Cloud Platforms"],
     status: "Guide",
+    coverImage: "/images/research/cloud-comparison.png",
     pdfPath: "/research/azure-cloud-guide.pdf",
     excerptMarkdown: `
 ## Purpose
@@ -192,6 +208,7 @@ Use it as a translation layer when designing multi-cloud architectures, writing 
     ],
     categories: ["Data Platforms", "Cloud Platforms", "RAG"],
     status: "Work in Progress",
+    coverImage: "/images/research/fabric-databricks.png",
     pdfPath: "/research/fabric-vs-databricks.pdf",
     excerptMarkdown: `
 ## Status
@@ -226,7 +243,7 @@ Cloud latency, cost, and editor-usability benchmarks must still be executed befo
   {
     slug: "claude-opus-token-economics",
     title: "Mastering Claude Opus Token Economics for the Savvy Developer",
-    author: "Predictive Tech Labs Research",
+    author: "Achint Pal Singh",
     date: "2026-06-15",
     readingTimeMinutes: 14,
     summary:
@@ -241,6 +258,7 @@ Cloud latency, cost, and editor-usability benchmarks must still be executed befo
     ],
     categories: ["AI Economics", "AI Models"],
     status: "Published",
+    coverImage: "/images/research/token-economics.png",
     pdfPath: "/research/claude-token-economics.pdf",
     externalUrl:
       "https://www.predictivetechlabs.com/blog/claude-opus-4-8-token-economics",
@@ -249,10 +267,17 @@ Cloud latency, cost, and editor-usability benchmarks must still be executed befo
 
 Every prompt, uploaded file, and model response is measured in tokens. Understanding that cost model is essential for building sustainable AI products.
 
+## Pricing reality (Claude Opus class models)
+
+- Input tokens set the baseline request cost
+- Output tokens are typically much more expensive than input
+- Prompt cache reads can reduce repeated prefix cost dramatically
+- Batch APIs can cut spend for asynchronous workloads
+
 ## Themes covered
 
 1. How tokens are counted and why content type changes density
-2. Input versus output pricing asymmetry
+2. Input versus output pricing asymmetry (the 5:1 mental model)
 3. Prompt caching as a major cost lever
 4. Batch APIs for asynchronous workloads
 5. Conversation-history growth as a silent budget risk
@@ -269,7 +294,7 @@ For the full published article, use the external Predictive Tech Labs link.
   {
     slug: "hermes-agents-memory",
     title: "Hermes-Style Agents, Memory, and Building a Chatbot That Never Forgets",
-    author: "Predictive Tech Labs Research",
+    author: "Achint Pal Singh",
     date: "2026-05-20",
     readingTimeMinutes: 11,
     summary:
@@ -285,6 +310,7 @@ For the full published article, use the external Predictive Tech Labs link.
     ],
     categories: ["Agents", "Governance", "Compliance"],
     status: "Published",
+    coverImage: "/images/research/hermes-agents.png",
     externalUrl: "https://www.predictivetechlabs.com/blog/hermes-agents-memory",
     excerptMarkdown: `
 ## Focus
@@ -318,10 +344,6 @@ export const researchCategories: ResearchCategory[] = [
 ];
 
 export const externalResearchLinks = [
-  {
-    title: "Predictive Tech Labs Blog",
-    url: "https://www.predictivetechlabs.com/blog",
-  },
   {
     title: "Claude Opus Token Economics",
     url: "https://www.predictivetechlabs.com/blog/claude-opus-4-8-token-economics",

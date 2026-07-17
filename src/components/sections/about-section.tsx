@@ -4,9 +4,9 @@ export function AboutSection() {
   return (
     <section id="about" className="scroll-mt-24 border-b border-[var(--border)]">
       <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-        <p className="text-sm font-medium text-[var(--accent)]">About</p>
-        <h2 className="mt-2 text-3xl font-semibold tracking-tight">
-          From CS graduate to AI System Engineer
+        <p className="text-sm font-semibold text-[var(--accent)]">About</p>
+        <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-medium tracking-[-0.03em] md:text-4xl">
+          AI Engineer who automates what others do manually
         </h2>
         <p className="mt-3 max-w-3xl text-[var(--muted)]">{profile.story}</p>
 

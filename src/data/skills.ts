@@ -119,6 +119,73 @@ export const skillGroups: SkillGroup[] = [
   },
 ];
 
+/** Official / recognizable logos via Simple Icons CDN where available. */
+export const skillIconSlugs: Record<string, string> = {
+  Python: "python",
+  SQL: "mysql",
+  FastAPI: "fastapi",
+  Flask: "flask",
+  Django: "django",
+  NumPy: "numpy",
+  Pandas: "pandas",
+  "Power BI": "powerbi",
+  TensorFlow: "tensorflow",
+  PyTorch: "pytorch",
+  Keras: "keras",
+  Docker: "docker",
+  Git: "git",
+  GitHub: "github",
+  Conda: "anaconda",
+  "VS Code": "visualstudiocode",
+  Cursor: "cursor",
+  "Google Colab": "googlecolab",
+  OpenRouter: "openai",
+  "GPT-family integrations": "openai",
+  "Claude integrations": "anthropic",
+  "Gemini integrations": "googlegemini",
+  "scikit-learn pipelines": "scikitlearn",
+  Databricks: "databricks",
+};
+
+export type LearningPlatform = {
+  name: string;
+  url: string;
+  description: string;
+  iconSlug: string;
+};
+
+export const learningPlatforms: LearningPlatform[] = [
+  {
+    name: "GeeksforGeeks",
+    url: "https://www.geeksforgeeks.org/",
+    description:
+      "Used for data structures, algorithms, Python, and interview-style practice during CS study.",
+    iconSlug: "geeksforgeeks",
+  },
+  {
+    name: "W3Schools",
+    url: "https://www.w3schools.com/",
+    description:
+      "Reference learning for web fundamentals, SQL, and practical coding examples.",
+    iconSlug: "w3schools",
+  },
+  {
+    name: "LeetCode",
+    url: "https://leetcode.com/",
+    description:
+      "Problem-solving practice for algorithms, coding patterns, and technical interview readiness.",
+    iconSlug: "leetcode",
+  },
+];
+
+export const dataScienceHandbook = {
+  title: "Data Science Journey Handbook",
+  description:
+    "A study handbook from Achint’s data science learning path — shared so aspiring data scientists can download and use it as a practical companion alongside coursework and projects.",
+  path: "/resources/data-science-handbook.pdf",
+  filename: "data-science-handbook.pdf",
+};
+
 export type CloudProvider = {
   id: string;
   name: string;

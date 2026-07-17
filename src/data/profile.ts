@@ -3,18 +3,18 @@ import { siteConfig } from "./site-config";
 export const profile = {
   ...siteConfig,
   biography: [
-    `${siteConfig.name} is an AI System Engineer based in ${siteConfig.location}, focused on building practical AI applications, RAG systems, intelligent agents, cloud-native backends, and production machine-learning workflows.`,
-    `He studied Computer Science at ${siteConfig.education.school} from ${siteConfig.education.range}, building foundations in Python, SQL, machine learning, deep learning, probability, data analytics, web development, and software engineering.`,
-    `He joined ${siteConfig.company} as an AI/ML Intern from ${siteConfig.internship.range} and returned in July 2026 as a full-time AI System Engineer. His work spans AI engineering, backend architecture, cloud infrastructure, RAG, data systems, and applied research.`,
-    "He is especially interested in building production systems rather than isolated demonstrations—turning research and prototypes into products people can actually use.",
+    `${siteConfig.name} is an AI System Engineer in ${siteConfig.location} who builds production systems that automate complex work — from data ingestion and RAG retrieval to agent workflows and cloud deployment.`,
+    `He studied Computer Science at ${siteConfig.education.school} (${siteConfig.education.range}), with coursework in data structures, AI/ML, and agentic AI patterns, plus published research on embedding/vector-search quality and latency.`,
+    `At ${siteConfig.company} he originated WeKnowRights and built the production backend of LEGID (legid.ca): automated jurisdiction-aware chat, cited RAG answering, client→lawyer handoff workflows, OCR ingestion, FAISS retrieval, and GCP infrastructure with Docker, Terraform, and CI/CD.`,
+    "He writes about vector-search benchmarking and LLM token economics, and focuses on systems that run reliably without manual babysitting — not one-off demos.",
   ],
   story:
-    "Computer Science graduate → AI/ML intern → AI System Engineer → product builder and technical researcher.",
+    "Computer Science graduate → AI/ML intern → AI System Engineer → builder of automated AI products and technical researcher.",
   focusCards: [
     {
-      title: "Build",
+      title: "Automate",
       description:
-        "Design and ship AI-powered products, backends, and workflows that solve real user problems.",
+        "Turn repetitive research, retrieval, and ops work into reliable pipelines, agents, and backend workflows.",
     },
     {
       title: "Research",
@@ -24,7 +24,7 @@ export const profile = {
     {
       title: "Deploy",
       description:
-        "Move systems to cloud infrastructure with secure secrets, monitoring, and reliable operations.",
+        "Move automated systems to cloud infrastructure with secure secrets, monitoring, and reliable operations.",
     },
     {
       title: "Improve",
@@ -33,13 +33,29 @@ export const profile = {
     },
   ],
   assistantSuggestedQuestions: [
+    "Recommend a blog post about RAG or vector search",
+    "Which blog should I read about automating AI systems?",
+    "Show me Achint's vector-search benchmark blog",
     "What did Achint build at Predictive Tech Labs?",
-    "Tell me about WeKnowRights.",
-    "What is Achint’s experience with RAG?",
-    "Which cloud platforms has Achint worked with?",
-    "What machine-learning skills does Achint have?",
-    "Show me Achint’s vector-search research.",
-    "Is Achint available for AI engineering opportunities?",
-    "What technologies does Achint use for backend development?",
+    "Tell me about WeKnowRights and LEGID",
+    "What systems has Achint automated in production?",
+    "Is Achint available for AI engineering roles?",
+  ],
+  assistantBlogRecommendations: [
+    {
+      slug: "benchmarking-vector-search-startup-chatbots",
+      title: "Vector Search Benchmarks for Startup Chatbots",
+      hook: "Latency, Recall@5, nDCG@5, and cost across 20 configurations.",
+    },
+    {
+      slug: "claude-fable-5-launch",
+      title: "Claude Fable 5 & Mythos 5",
+      hook: "When to use each frontier model in production.",
+    },
+    {
+      slug: "how-much-does-a-rag-chatbot-cost-2026",
+      title: "RAG Chatbot Cost in 2026",
+      hook: "Budget tables and vendor checklist for procurement.",
+    },
   ],
 } as const;

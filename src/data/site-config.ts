@@ -1,17 +1,17 @@
 /**
- * Central site configuration.
- * VERIFY: contact email, résumé path, social URLs, and availability before publishing.
+ * Central site configuration — values aligned to Achint's résumé (DOCX).
+ * VERIFY before publishing: phone visibility preference, availability wording.
  */
 export const siteConfig = {
   name: "Achint Pal Singh",
   shortName: "Achint",
-  title: "AI System Engineer",
+  title: "AI Engineer",
   location: "Toronto, Ontario, Canada",
-  // VERIFY: replace with personal contact email if preferred
-  email: "info@predictivetechlabs.com",
+  email: "achintpalsingh94@gmail.com",
+  phone: "365-440-4319",
   company: "Predictive Tech Labs",
   education: {
-    degree: "Bachelor of Computer Science",
+    degree: "Bachelor's degree, Computer Science",
     school: "Algoma University",
     start: "September 2023",
     end: "May 2026",
@@ -31,11 +31,13 @@ export const siteConfig = {
     end: "Present",
     range: "July 2026 – Present",
   },
-  // VERIFY: confirm availability wording before sharing with recruiters
+  // Résumé lists continuous AI Engineer role Nov 2025 – Present at PredictiveTechLabs
+  resumeRoleSummary: "AI Engineer — Predictive Tech Labs · Nov 2025 – Present",
   availability:
     "Open to AI engineering, generative AI, MLOps, and backend-focused opportunities in Toronto or remote.",
   interests: [
     "AI systems engineering",
+    "automation and agent orchestration",
     "RAG and semantic search",
     "LLM workflows and agents",
     "Cloud-native backends",
@@ -49,29 +51,31 @@ export const siteConfig = {
     linkedin:
       process.env.NEXT_PUBLIC_LINKEDIN_URL ||
       "https://www.linkedin.com/in/achint-pal-singh-1a0114288/",
-    // VERIFY: update when portfolio is deployed
     siteUrl:
       process.env.NEXT_PUBLIC_SITE_URL ||
       "https://achint-portfolio.vercel.app",
   },
   resumePath: "/resume/achint-pal-singh-resume.pdf",
+  resumeDocxPath: "/resume/achint-pal-singh-resume.docx",
   weknowrightsUrl: "https://legid.ca/",
   ptlBlog: "https://www.predictivetechlabs.com/blog",
-  tagline: "AI System Engineer Building Intelligent, Reliable Systems",
+  tagline: "Achint Pal Singh · AI Engineer",
+  linkedinHeadline:
+    "AI Engineer | Automating the small things that reduce human effort | Agents · RAG · AWS · GCP · Azure · Databricks",
   supportingText:
-    "I build AI agents, RAG applications, production LLM workflows, cloud-native backends, machine-learning systems, and data platforms that turn complex problems into useful products.",
+    "As an AI engineer, I admire automating single things that reduce human effort — from LEGID legal AI backends and agent workflows to vector-search research and cloud-native MLOps.",
   specialties: [
     "AI Systems Engineering",
+    "Workflow & Agent Automation",
     "Generative AI and LLMs",
     "RAG and Semantic Search",
     "MLOps and Cloud Infrastructure",
-    "Data Science and Analytics",
   ],
   credibility: [
-    "AI System Engineer at Predictive Tech Labs",
-    "Computer Science graduate from Algoma University",
-    "Builder of AI-powered legal and productivity platforms",
-    "Author of technical research and benchmarking studies",
+    "AI System Engineer who automates production AI pipelines",
+    "B.Sc. Computer Science, Algoma University (Sep 2023 – May 2026)",
+    "Builder of LEGID / WeKnowRights legal AI systems",
+    "Author of vector-search and LLM token-economics research",
   ],
 } as const;
 

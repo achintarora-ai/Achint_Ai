@@ -38,16 +38,16 @@ export function Footer() {
             </a>
           </div>
           <div className="flex flex-wrap gap-3 text-sm text-[var(--muted)]">
-            <Link href="/research" className="hover:text-[var(--accent)]">
-              Research
+            <Link href="/skills" className="hover:text-[var(--claude)]">
+              Skills
             </Link>
-            <Link href="/projects" className="hover:text-[var(--accent)]">
+            <Link href="/projects" className="hover:text-[var(--claude)]">
               Projects
             </Link>
-            <Link href="/contact" className="hover:text-[var(--accent)]">
-              Contact
+            <Link href="/blogs" className="hover:text-[var(--claude)]">
+              Blogs
             </Link>
-            <Link href="/assistant" className="hover:text-[var(--accent)]">
+            <Link href="/assistant" className="hover:text-[var(--claude)]">
               Ask Achint AI
             </Link>
           </div>

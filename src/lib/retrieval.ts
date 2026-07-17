@@ -1,7 +1,8 @@
+import { blogPosts } from "@/data/blogs";
+import { education } from "@/data/education";
 import { experience } from "@/data/experience";
 import { profile } from "@/data/profile";
 import { projects } from "@/data/projects";
-import { researchArticles } from "@/data/research";
 import { cloudProviders, skillGroups } from "@/data/skills";
 import { siteConfig } from "@/data/site-config";
 
@@ -35,6 +36,17 @@ function buildCorpus(): KnowledgeChunk[] {
     weight: 1.4,
     url: "/#about",
   });
+
+  for (const school of education) {
+    chunks.push({
+      id: `education-${school.id}`,
+      source: "education",
+      title: `${school.degree} — ${school.school}`,
+      text: `${school.school} ${school.degree} ${school.range} ${school.description} ${(school.activities ?? []).join(" ")} ${(school.skills ?? []).join(" ")} ${school.grade ?? ""}`,
+      weight: 1.3,
+      url: "/#education",
+    });
+  }
 
   for (const job of experience) {
     chunks.push({
@@ -91,14 +103,14 @@ function buildCorpus(): KnowledgeChunk[] {
     });
   }
 
-  for (const article of researchArticles) {
+  for (const article of blogPosts) {
     chunks.push({
-      id: `research-${article.slug}`,
-      source: "research",
+      id: `blog-${article.slug}`,
+      source: "blogs",
       title: article.title,
-      text: `${article.title} ${article.summary} ${article.tags.join(" ")} ${article.categories.join(" ")} ${article.excerptMarkdown}`,
+      text: `${article.title} ${article.summary} ${article.tags.join(" ")} ${article.excerptMarkdown}`,
       weight: 1.4,
-      url: `/research/${article.slug}`,
+      url: `/blogs/${article.slug}`,
     });
   }
 

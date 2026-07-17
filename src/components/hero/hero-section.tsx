@@ -1,73 +1,79 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons/social";
 import { siteConfig } from "@/data/site-config";
-import { PortraitParallax } from "./portrait-parallax";
-import { SpecialtyRotator } from "./specialty-rotator";
+import { LlmStructurePanel } from "./llm-structure-panel";
+
+const stats = [
+  { label: "MINDSET", value: "Reduce human effort" },
+  { label: "FOCUS AREAS", value: "Agents · RAG · Cloud" },
+  { label: "STACK CORE", value: "Python · FastAPI" },
+  { label: "DEPLOYMENT", value: "GCP Cloud Run" },
+];
 
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden border-b border-[var(--border)]">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--surface)_80%,transparent),transparent),radial-gradient(circle_at_15%_20%,color-mix(in_oklab,var(--accent)_10%,transparent),transparent_40%),radial-gradient(circle_at_85%_10%,color-mix(in_oklab,var(--blue)_12%,transparent),transparent_35%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,var(--glow-green),transparent_42%),radial-gradient(circle_at_88%_20%,var(--glow-green),transparent_38%)]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.35] [background-image:linear-gradient(var(--grid)_1px,transparent_1px),linear-gradient(90deg,var(--grid)_1px,transparent_1px)] [background-size:28px_28px] [mask-image:linear-gradient(to_bottom,black,transparent)]"
+        className="pointer-events-none absolute inset-0 opacity-30 [background-image:linear-gradient(var(--grid)_1px,transparent_1px),linear-gradient(90deg,var(--grid)_1px,transparent_1px)] [background-size:34px_34px] [mask-image:linear-gradient(to_bottom,black,transparent_80%)]"
       />
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-[1.15fr_0.85fr] md:px-6 md:py-24">
+      <div className="relative mx-auto grid max-w-7xl items-center gap-8 px-4 py-14 md:grid-cols-[0.82fr_1.18fr] md:gap-10 md:px-6 md:py-20">
         <div>
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-sm font-medium tracking-wide text-[var(--muted)]"
+            className="text-[11px] font-semibold tracking-[0.16em] text-[var(--muted)]"
           >
-            {siteConfig.name} · {siteConfig.location}
+            {siteConfig.location.toUpperCase()} ·{" "}
+            <span className="text-[var(--accent)]">AI ENGINEER</span>
           </motion.p>
+
           <motion.h1
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 }}
-            className="mt-3 max-w-2xl text-4xl font-semibold tracking-tight text-[var(--foreground)] md:text-5xl"
+            className="mt-4 max-w-xl font-[family-name:var(--font-display)] text-5xl font-medium leading-[1.05] tracking-[-0.04em] md:text-6xl"
           >
-            {siteConfig.tagline}
+            <span className="text-[var(--foreground)]">Achint Pal Singh</span>
+            <span className="mt-2 block text-[var(--accent)]">AI Engineer</span>
           </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="mt-5 max-w-2xl text-base leading-relaxed text-[var(--muted)] md:text-lg"
-          >
+
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-[var(--foreground)] md:text-xl">
+            As an AI engineer, I admire automating single things that reduce
+            human effort.
+          </p>
+
+          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[var(--muted)] md:text-base">
             {siteConfig.supportingText}
-          </motion.p>
+          </p>
 
-          <div className="mt-5">
-            <SpecialtyRotator items={siteConfig.specialties} />
-          </div>
-
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-7 flex flex-wrap gap-3">
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-white hover:opacity-90"
+              className="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-5 py-2.5 text-sm font-semibold text-[#06110c] hover:opacity-92"
             >
-              View My Work <ArrowRight className="h-4 w-4" />
+              View my work <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
-              href="/assistant"
-              className="inline-flex items-center rounded-md border border-[var(--border)] bg-[var(--background)] px-4 py-2.5 text-sm font-medium text-[var(--foreground)] hover:border-[var(--accent)]"
+              href="/blogs"
+              className="inline-flex items-center rounded-full border border-[var(--border)] bg-[var(--surface)] px-5 py-2.5 text-sm font-semibold hover:border-[var(--accent)]"
             >
-              Ask My AI Assistant
+              Read the blog
             </Link>
             <a
-              href={siteConfig.resumePath}
-              className="inline-flex items-center rounded-md border border-[var(--border)] px-4 py-2.5 text-sm font-medium text-[var(--foreground)] hover:border-[var(--accent)]"
+              href="/resume"
+              className="inline-flex items-center rounded-full border border-[var(--border)] px-5 py-2.5 text-sm font-semibold hover:border-[var(--accent)]"
             >
-              Download Résumé
+              Download résumé
             </a>
           </div>
 
@@ -88,27 +94,35 @@ export function HeroSection() {
             >
               <LinkedinIcon className="h-4 w-4" /> LinkedIn
             </a>
-            <Link href="/research" className="hover:text-[var(--accent)]">
-              Research
+            <Link href="/assistant" className="hover:text-[var(--accent)]">
+              Ask Achint AI
             </Link>
+          </div>
+
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {stats.map((stat) => (
+              <div
+                key={stat.label}
+                className="rounded-xl border border-[var(--border)] bg-[var(--surface)] px-3 py-3"
+              >
+                <p className="text-[10px] font-semibold tracking-[0.12em] text-[var(--muted)]">
+                  {stat.label}
+                </p>
+                <p className="mt-1 text-sm font-semibold text-[var(--foreground)]">
+                  {stat.value}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
 
-        <PortraitParallax alt={`${siteConfig.name}, ${siteConfig.title}`} />
+        <LlmStructurePanel />
       </div>
 
-      <div className="relative border-t border-[var(--border)] bg-[color-mix(in_oklab,var(--surface)_70%,transparent)]">
-        <ul className="mx-auto grid max-w-6xl gap-3 px-4 py-5 sm:grid-cols-2 lg:grid-cols-4 md:px-6">
-          {siteConfig.credibility.map((item) => (
-            <li
-              key={item}
-              className="text-sm leading-snug text-[var(--muted)]"
-            >
-              <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-[var(--accent)] align-middle" />
-              {item}
-            </li>
-          ))}
-        </ul>
+      <div className="relative border-t border-[var(--border)] bg-[color-mix(in_oklab,var(--surface)_90%,transparent)]">
+        <p className="mx-auto max-w-6xl px-4 py-4 text-center text-[11px] font-semibold tracking-[0.22em] text-[var(--muted)] md:px-6">
+          AUTOMATE · DESIGN · BUILD · EVALUATE · SHIP
+        </p>
       </div>
     </section>
   );

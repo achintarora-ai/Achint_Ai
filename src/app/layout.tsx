@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { JetBrains_Mono, Newsreader, Source_Sans_3 } from "next/font/google";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { FloatingChat } from "@/components/chat/floating-chat";
@@ -7,7 +7,14 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { siteConfig } from "@/data/site-config";
 import "./globals.css";
 
-const sans = Plus_Jakarta_Sans({
+/* Anthropic-like pairing: editorial serif display + clean humanist sans */
+const display = Newsreader({
+  variable: "--font-display",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+});
+
+const sans = Source_Sans_3({
   variable: "--font-sans",
   subsets: ["latin"],
 });
@@ -34,6 +41,8 @@ export const metadata: Metadata = {
     "Python Backend Engineer",
     "RAG",
     "LLM",
+    "Automation",
+    "AI Agents",
     "Toronto",
   ],
   authors: [{ name: siteConfig.name }],
@@ -96,15 +105,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="h-full">
+    <html lang="en" suppressHydrationWarning className="dark h-full">
       <body
-        className={`${sans.variable} ${mono.variable} flex min-h-full flex-col antialiased`}
+        className={`${display.variable} ${sans.variable} ${mono.variable} flex min-h-full flex-col bg-[var(--background)] antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <ThemeProvider>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-          />
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />

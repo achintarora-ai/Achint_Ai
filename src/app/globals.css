@@ -1,27 +1,21 @@
 @import "tailwindcss";
 
+/* Dark-only portfolio interface — orange + green accents */
 :root {
-  --background: #f5f6f8;
-  --foreground: #1c2430;
-  --surface: #ffffff;
-  --muted: #5b6575;
-  --border: #d7dde7;
-  --accent: #0f5c45;
-  --accent-soft: #d9ebe3;
-  --blue: #2f5d8c;
-  --grid: #dfe5ee;
-}
-
-.dark {
-  --background: #0f141a;
-  --foreground: #e8edf4;
-  --surface: #171e27;
-  --muted: #9aa6b8;
-  --border: #2a3442;
+  --background: #0b0f0e;
+  --foreground: #f3f1ea;
+  --surface: #121816;
+  --surface-2: #18201c;
+  --muted: #9aa69c;
+  --border: #27332d;
   --accent: #3f9f78;
-  --accent-soft: #1d3a30;
+  --accent-soft: #1a3328;
   --blue: #6ea0d4;
-  --grid: #243041;
+  --grid: #1c2621;
+  --claude: #e0895a;
+  --claude-soft: #3a2418;
+  --glow-green: color-mix(in oklab, var(--accent) 28%, transparent);
+  --glow-orange: color-mix(in oklab, var(--claude) 24%, transparent);
 }
 
 @theme inline {
@@ -29,9 +23,11 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
+  --font-display: var(--font-display);
 }
 
 html {
+  color-scheme: dark;
   scroll-behavior: smooth;
 }
 
@@ -53,23 +49,26 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), "Segoe UI", sans-serif;
+  letter-spacing: -0.011em;
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--accent) 28%, white);
+  background: color-mix(in oklab, var(--accent) 40%, transparent);
 }
 
 .prose-portfolio {
   color: var(--foreground);
-  line-height: 1.75;
+  line-height: 1.8;
+  font-size: 1.02rem;
 }
 
 .prose-portfolio h2,
 .prose-portfolio h3,
 .prose-portfolio h4 {
-  margin-top: 1.75rem;
-  margin-bottom: 0.75rem;
-  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 500;
   letter-spacing: -0.02em;
 }
 
@@ -79,7 +78,7 @@ body {
 .prose-portfolio blockquote,
 .prose-portfolio pre,
 .prose-portfolio table {
-  margin-bottom: 1rem;
+  margin-bottom: 1.1rem;
 }
 
 .prose-portfolio ul {
@@ -93,7 +92,7 @@ body {
 }
 
 .prose-portfolio a {
-  color: var(--accent);
+  color: var(--claude);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -104,14 +103,15 @@ body {
   border: 1px solid var(--border);
   padding: 0.1rem 0.35rem;
   font-size: 0.9em;
+  font-family: var(--font-mono), ui-monospace, monospace;
 }
 
 .prose-portfolio pre {
   overflow-x: auto;
   border-radius: 0.85rem;
   border: 1px solid var(--border);
-  background: #111827;
-  color: #e5e7eb;
+  background: #060908;
+  color: #f5f5f4;
   padding: 1rem;
 }
 
@@ -123,9 +123,10 @@ body {
 }
 
 .prose-portfolio blockquote {
-  border-left: 3px solid var(--accent);
+  border-left: 3px solid var(--claude);
   padding-left: 1rem;
   color: var(--muted);
+  font-style: italic;
 }
 
 .prose-portfolio table {
