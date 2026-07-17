@@ -1,11 +1,23 @@
 import type { NextConfig } from "next";
 import path from "path";
 
+const isGithubPages = process.env.GITHUB_PAGES === "true";
+const basePath = process.env.GITHUB_PAGES_BASE_PATH ?? "";
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   devIndicators: false,
+  ...(isGithubPages
+    ? {
+        output: "export",
+        trailingSlash: true,
+        basePath: basePath || undefined,
+        assetPrefix: basePath ? `${basePath}/` : undefined,
+      }
+    : {}),
   images: {
-    formats: ["image/avif", "image/webp"],
+    unoptimized: isGithubPages,
+    formats: isGithubPages ? undefined : ["image/avif", "image/webp"],
     remotePatterns: [
       {
         protocol: "https",

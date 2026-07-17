@@ -3,6 +3,8 @@ import { blogPosts } from "@/data/blogs";
 import { projects } from "@/data/projects";
 import { siteConfig } from "@/data/site-config";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.social.siteUrl;
   const staticRoutes = [

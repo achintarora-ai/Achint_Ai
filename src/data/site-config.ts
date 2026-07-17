@@ -53,7 +53,7 @@ export const siteConfig = {
       "https://www.linkedin.com/in/achint-pal-singh-1a0114288/",
     siteUrl:
       process.env.NEXT_PUBLIC_SITE_URL ||
-      "https://achint-portfolio.vercel.app",
+      "https://achintpalsingh.github.io",
   },
   resumePath: "/resume/achint-pal-singh-resume.pdf",
   resumeDocxPath: "/resume/achint-pal-singh-resume.docx",
