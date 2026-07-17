@@ -105,55 +105,6 @@ export const projects: Project[] = [
     disclaimer:
       "This platform provides legal information and workflow support and is not a substitute for advice from a qualified legal professional.",
   },
-  {
-    id: "1ai",
-    slug: "1ai",
-    name: "1AI",
-    tagline: "AI assistant and agent platform for productivity",
-    description:
-      "An AI assistant designed to help users manage daily commitments, research, communication, scheduling, content, and productivity through connected tools and specialized agents.",
-    featured: true,
-    status: "Prototype / in development",
-    stack: [
-      "Python",
-      "LLM Agents",
-      "RAG",
-      "API Integrations",
-      "Workflow Orchestration",
-    ],
-    problem:
-      "Personal and professional productivity tools are fragmented across email, calendar, research, and content workflows.",
-    solution: [
-      "Unified AI assistant experience",
-      "Specialized agents for research and productivity",
-      "Connected tool workflows",
-      "Knowledge assistance with RAG",
-    ],
-    contributions: [
-      "Product concept and agent workflow design",
-      "Exploration of multi-agent orchestration patterns",
-      "RAG-based knowledge assistance prototypes",
-      "Integration patterns for communication and scheduling tools",
-    ],
-    architecture: [
-      "User Interface",
-      "Assistant Orchestrator",
-      "Specialized Agents",
-      "Tool Connectors",
-      "RAG Knowledge Layer",
-      "LLM Provider Router",
-    ],
-    capabilities: [
-      { name: "Gmail workflows", status: "in-development" },
-      { name: "Calendar workflows", status: "in-development" },
-      { name: "Web research", status: "prototype" },
-      { name: "Daily digest", status: "prototype" },
-      { name: "Task prioritization", status: "prototype" },
-      { name: "Social-content support", status: "experimental" },
-      { name: "RAG-based knowledge assistance", status: "prototype" },
-      { name: "Multi-agent workflows", status: "experimental" },
-    ],
-  },
 ];
 
 export function getProjectBySlug(slug: string) {

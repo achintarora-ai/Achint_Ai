@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { AssetLink } from "@/components/ui/asset-link";
+import { SiteImage } from "@/components/ui/site-image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArticleMarkdown } from "@/components/markdown/article-markdown";
@@ -51,7 +52,7 @@ export default async function BlogPostPage({ params }: Props) {
             isBlogPoster(post.coverImage) ? "aspect-[16/9] bg-[var(--background)]" : "aspect-[16/7]"
           }`}
         >
-          <Image
+          <SiteImage
             src={post.coverImage}
             alt=""
             fill
@@ -88,24 +89,14 @@ export default async function BlogPostPage({ params }: Props) {
 
         <div className="mt-8 flex flex-wrap gap-3">
           {post.pdfPath && (
-            <a
+            <AssetLink
               href={post.pdfPath}
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-full bg-[var(--claude)] px-4 py-2 text-sm font-semibold text-white"
             >
               Download PDF
-            </a>
-          )}
-          {post.externalUrl && (
-            <a
-              href={post.externalUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full border border-[var(--border)] px-4 py-2 text-sm font-semibold"
-            >
-              Open original article
-            </a>
+            </AssetLink>
           )}
         </div>
       </article>

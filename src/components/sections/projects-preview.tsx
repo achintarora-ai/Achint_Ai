@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SiteImage } from "@/components/ui/site-image";
 import Link from "next/link";
 import { projects } from "@/data/projects";
 
@@ -29,7 +29,7 @@ export function ProjectsPreview() {
             >
               <div className="flex items-center gap-4 border-b border-[var(--border)] p-5">
                 {project.image ? (
-                  <Image
+                  <SiteImage
                     src={project.image}
                     alt={`${project.name} logo`}
                     width={56}

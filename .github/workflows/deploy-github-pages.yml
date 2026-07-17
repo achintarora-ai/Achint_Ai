@@ -34,6 +34,7 @@ jobs:
         env:
           GITHUB_PAGES: "true"
           GITHUB_PAGES_BASE_PATH: /Achint_Ai
+          NEXT_PUBLIC_BASE_PATH: /Achint_Ai
           NEXT_PUBLIC_SITE_URL: https://achintarora-ai.github.io/Achint_Ai
           NEXT_PUBLIC_GITHUB_URL: https://github.com/achintarora-ai/Achint_Ai
           NEXT_PUBLIC_LINKEDIN_URL: https://www.linkedin.com/in/achint-pal-singh-1a0114288/
@@ -44,3 +45,11 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./out
           force_orphan: true
+
+      - name: Wait for GitHub Pages propagation
+        run: sleep 60
+
+      - name: Verify live deployment
+        run: node scripts/verify-github-pages.mjs
+        env:
+          SITE_URL: https://achintarora-ai.github.io/Achint_Ai

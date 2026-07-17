@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Download, FileText } from "lucide-react";
+import { AssetLink } from "@/components/ui/asset-link";
 import { siteConfig } from "@/data/site-config";
+import { publicPath } from "@/lib/paths";
 
 export const metadata: Metadata = {
   title: "Résumé",
@@ -23,22 +25,22 @@ export default function ResumePage() {
       </p>
 
       <div className="mt-6 flex flex-wrap gap-3">
-        <a
+        <AssetLink
           href={siteConfig.resumePath}
           download
           className="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-5 py-2.5 text-sm font-semibold text-[#06110c] hover:opacity-92"
         >
           <Download className="h-4 w-4" />
           Download PDF
-        </a>
-        <a
+        </AssetLink>
+        <AssetLink
           href={siteConfig.resumeDocxPath}
           download
           className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-5 py-2.5 text-sm font-semibold hover:border-[var(--accent)]"
         >
           <FileText className="h-4 w-4" />
           Download DOCX
-        </a>
+        </AssetLink>
         <Link
           href="/contact"
           className="inline-flex items-center rounded-full border border-[var(--border)] px-5 py-2.5 text-sm font-semibold hover:border-[var(--accent)]"
@@ -53,7 +55,7 @@ export default function ResumePage() {
         </div>
         <iframe
           title={`${siteConfig.name} résumé`}
-          src={`${siteConfig.resumePath}#view=FitH`}
+          src={`${publicPath(siteConfig.resumePath)}#view=FitH`}
           className="h-[min(80vh,920px)] w-full bg-white"
         />
       </div>

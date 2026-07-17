@@ -28,7 +28,6 @@ export type ResearchArticle = {
   status: ResearchStatus;
   coverImage?: string;
   pdfPath?: string;
-  externalUrl?: string;
   excerptMarkdown: string;
 };
 
@@ -260,35 +259,54 @@ Cloud latency, cost, and editor-usability benchmarks must still be executed befo
     status: "Published",
     coverImage: "/images/research/token-economics.png",
     pdfPath: "/research/claude-token-economics.pdf",
-    externalUrl:
-      "https://www.predictivetechlabs.com/blog/claude-opus-4-8-token-economics",
     excerptMarkdown: `
 ## Why token economics matters
 
-Every prompt, uploaded file, and model response is measured in tokens. Understanding that cost model is essential for building sustainable AI products.
+Every prompt, uploaded file, and model response is measured in tokens. Understanding that cost model is essential for building sustainable AI products — especially when Opus-class models power agent workflows that can burn through context in a single session.
 
-## Pricing reality (Claude Opus class models)
+## The 5:1 mental model
 
-- Input tokens set the baseline request cost
-- Output tokens are typically much more expensive than input
-- Prompt cache reads can reduce repeated prefix cost dramatically
-- Batch APIs can cut spend for asynchronous workloads
+For most frontier models, **output tokens cost several times more than input tokens**. A useful rule of thumb: if input is $X per million tokens, output is often ~5X. That asymmetry changes how you design prompts:
 
-## Themes covered
+- Long system prompts are expensive once, but cheap on cache hits
+- Verbose model answers are expensive **every turn**
+- Retrieval-heavy pipelines pay twice: embedding input + generation input
 
-1. How tokens are counted and why content type changes density
-2. Input versus output pricing asymmetry (the 5:1 mental model)
-3. Prompt caching as a major cost lever
-4. Batch APIs for asynchronous workloads
-5. Conversation-history growth as a silent budget risk
-6. Model routing: using the right model for the job
-7. Practical checklists for cost-aware AI systems
+## Prompt caching as a first-class lever
 
-## Takeaway for engineers
+When your system prompt, tool definitions, and document prefix stay stable across requests, **prompt caching** can cut repeated prefix cost dramatically. I structure prompts so the static portion (policies, tool schemas, persona) sits at the top and caches cleanly.
 
-Treat cost controls as part of system design—caching, truncation policies, batching, and model selection are product decisions, not afterthoughts.
+## Batch APIs for async workloads
 
-For the full published article, use the external Predictive Tech Labs link.
+Indexing jobs, offline evals, and report generation rarely need sub-second latency. Routing those workloads to **batch endpoints** can reduce spend 40–50% compared to synchronous calls — at the cost of turnaround time. That trade is almost always worth it for nightly pipelines.
+
+## Conversation history is a silent budget leak
+
+Each turn re-sends prior messages. A 30-turn support chat with large retrieved chunks can explode input tokens even if the latest user message is short. Mitigations I use:
+
+- Rolling summaries after N turns
+- Store structured state instead of full transcript when possible
+- Hard caps with graceful “start new session” UX
+
+## Model routing checklist
+
+| Task type | Model tier | Rationale |
+| --- | --- | --- |
+| Classification / routing | Small, fast | Minimal reasoning needed |
+| RAG Q&A with citations | Mid-tier | Balance quality and cost |
+| Multi-doc analysis | Frontier | Quality dominates |
+| Code or schema generation | Mid or frontier | Depends on error cost |
+
+## Practical cost controls in production
+
+1. Log **tokens per successful task**, not just per request
+2. Alert when p95 context size crosses thresholds
+3. A/B test shorter prompt templates against quality metrics
+4. Review tool outputs that trigger second-pass regeneration
+
+## Takeaway
+
+Treat cost controls as part of system design — caching, truncation policies, batching, and model selection are product decisions, not finance afterthoughts. Teams that instrument token spend early ship assistants that scale without surprise invoices.
 `.trim(),
   },
   {
@@ -311,22 +329,60 @@ For the full published article, use the external Predictive Tech Labs link.
     categories: ["Agents", "Governance", "Compliance"],
     status: "Published",
     coverImage: "/images/research/hermes-agents.png",
-    externalUrl: "https://www.predictivetechlabs.com/blog/hermes-agents-memory",
     excerptMarkdown: `
-## Focus
+## Why durable memory changes agent design
 
-This article discusses agent architectures that combine planning, execution, commitment, and auditing with durable memory so assistants can retain useful context without becoming ungoverned.
+Most chatbots forget everything when the session ends. That is fine for FAQs — it is a problem when users expect an assistant to remember project context, prior decisions, and open tasks across days or weeks.
 
-## Topics
+**Hermes-style agent architectures** address this by separating *what happened* from *what the model sees right now*. The goal is memory that is useful, auditable, and revocable.
 
-- Durable memory design for long-running assistants
-- Planner / Executor / Committer / Auditor patterns
-- Lifecycle management for agent actions
-- Compliance and governance considerations
+## The four-role pattern
 
-## Portfolio note
+I organize long-running agents into four responsibilities:
 
-Read the full write-up on the Predictive Tech Labs blog. This portfolio page provides a summary and navigation aid for recruiters and collaborators.
+| Role | Job | Example output |
+| --- | --- | --- |
+| **Planner** | Decompose goals into steps | Task graph with dependencies |
+| **Executor** | Call tools, fetch data, draft content | Tool traces, partial results |
+| **Committer** | Decide what becomes durable memory | Structured memory entries |
+| **Auditor** | Review actions against policy | Allow / deny / escalate |
+
+The critical insight: **only the Committer writes to durable memory**. Executors can be messy; memory must be deliberate.
+
+## Memory layers that work in production
+
+1. **Ephemeral context** — Current turn retrieval and tool outputs. Discarded after the session unless promoted.
+2. **Session summaries** — Compressed narrative of what was accomplished. Cheap to inject into future prompts.
+3. **Structured facts** — Key-value records: user preferences, matter IDs, approved decisions. Queryable without re-sending full chat logs.
+4. **Audit log** — Immutable record of who changed what memory and when. Required for regulated domains.
+
+## Governance without killing UX
+
+Durable memory scares compliance teams for good reason. Mitigations I apply:
+
+- User-visible memory panel (“what the assistant remembers about you”)
+- TTL and deletion on request
+- Role-based memory scopes (client vs internal analyst views)
+- Auditor step for PHI or legally sensitive commits
+
+## Lifecycle management
+
+Memory entries should have states: **proposed → committed → superseded → deleted**. Never overwrite in place without leaving an audit trail. When a user corrects the bot, supersede the old fact rather than pretending the error never happened.
+
+## When this pattern is worth the complexity
+
+Use Planner / Executor / Committer / Auditor when:
+
+- Sessions span multiple days
+- Agents call external tools that mutate state
+- You need explainability for automated decisions
+- Compliance requires knowing *why* the assistant “remembered” something
+
+Skip it for simple RAG Q&A over static documents — the overhead is not justified.
+
+## Takeaway
+
+A chatbot that “never forgets” without governance becomes a liability. Hermes-style designs trade a bit of latency and engineering cost for memory that is **intentional, inspectable, and safe to scale**.
 `.trim(),
   },
 ];
@@ -341,17 +397,6 @@ export const researchCategories: ResearchCategory[] = [
   "Governance",
   "Compliance",
   "AI Models",
-];
-
-export const externalResearchLinks = [
-  {
-    title: "Claude Opus Token Economics",
-    url: "https://www.predictivetechlabs.com/blog/claude-opus-4-8-token-economics",
-  },
-  {
-    title: "Hermes Agents and Memory",
-    url: "https://www.predictivetechlabs.com/blog/hermes-agents-memory",
-  },
 ];
 
 export function getResearchBySlug(slug: string) {

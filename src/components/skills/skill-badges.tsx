@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SiteImage } from "@/components/ui/site-image";
 import { skillIconSlugs } from "@/data/skills";
 
 function iconUrl(slug: string) {
@@ -16,7 +16,7 @@ export function SkillBadges({ items }: { items: string[] }) {
             className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--background)] px-2.5 py-1 text-xs"
           >
             {slug ? (
-              <Image
+              <SiteImage
                 src={iconUrl(slug)}
                 alt=""
                 width={14}

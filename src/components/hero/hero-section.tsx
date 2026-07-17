@@ -69,12 +69,12 @@ export function HeroSection() {
             >
               Read the blog
             </Link>
-            <a
+            <Link
               href="/resume"
               className="inline-flex items-center rounded-full border border-[var(--border)] px-5 py-2.5 text-sm font-semibold hover:border-[var(--accent)]"
             >
               Download résumé
-            </a>
+            </Link>
           </div>
 
           <div className="mt-5 flex flex-wrap items-center gap-4 text-sm text-[var(--muted)]">

@@ -1,9 +1,10 @@
 "use client";
 
-import Image from "next/image";
+import { SiteImage } from "@/components/ui/site-image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { blogPosts, blogSources } from "@/data/blogs";
+import { blogPosts } from "@/data/blogs";
+import { AssetLink } from "@/components/ui/asset-link";
 import { cn, coverImageClass, formatDate } from "@/lib/utils";
 
 const filters = ["All", "Achint", "RAG", "Cloud", "Agents", "Economics"] as const;
@@ -54,7 +55,7 @@ export function BlogLibrary() {
           >
             {post.coverImage && (
               <div className="relative aspect-[16/9] border-b border-[var(--border)] bg-[var(--background)]">
-                <Image
+                <SiteImage
                   src={post.coverImage}
                   alt=""
                   fill
@@ -93,50 +94,20 @@ export function BlogLibrary() {
                   Read post
                 </Link>
                 {post.pdfPath && (
-                  <a
+                  <AssetLink
                     href={post.pdfPath}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-[var(--muted)] hover:text-[var(--claude)]"
                   >
                     PDF
-                  </a>
-                )}
-                {post.externalUrl && (
-                  <a
-                    href={post.externalUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-[var(--muted)] hover:text-[var(--claude)]"
-                  >
-                    Original
-                  </a>
+                  </AssetLink>
                 )}
               </div>
             </div>
           </article>
         ))}
       </div>
-
-      <section className="mt-12 rounded-[1.5rem] border border-[var(--border)] bg-[var(--surface)] p-6">
-        <h2 className="font-[family-name:var(--font-display)] text-2xl font-medium tracking-[-0.02em]">
-          Source links
-        </h2>
-        <ul className="mt-4 space-y-2">
-          {blogSources.map((link) => (
-            <li key={link.url}>
-              <a
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium text-[var(--claude)] hover:underline"
-              >
-                {link.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
     </div>
   );
 }

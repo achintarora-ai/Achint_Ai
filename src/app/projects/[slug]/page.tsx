@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { SiteImage } from "@/components/ui/site-image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArchitectureDiagram } from "@/components/projects/architecture-diagram";
@@ -62,7 +62,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 
       <div className="mt-6 flex flex-wrap items-start gap-5">
         {project.image ? (
-          <Image
+          <SiteImage
             src={project.image}
             alt={`${project.name} logo`}
             width={88}

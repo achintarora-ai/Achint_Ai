@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SiteImage } from "@/components/ui/site-image";
 import { education } from "@/data/education";
 
 export function EducationSection() {
@@ -28,7 +28,7 @@ export function EducationSection() {
               <div className="flex flex-wrap items-start gap-4">
                 {item.logo ? (
                   <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-[var(--border)] bg-white p-1.5">
-                    <Image
+                    <SiteImage
                       src={item.logo}
                       alt={`${item.school} logo`}
                       width={48}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { SiteImage } from "@/components/ui/site-image";
 import Link from "next/link";
 import { projects } from "@/data/projects";
 
@@ -29,7 +29,7 @@ export default function ProjectsPage() {
           >
             <div className="flex items-start">
               {project.image ? (
-                <Image
+                <SiteImage
                   src={project.image}
                   alt={`${project.name} logo`}
                   width={96}

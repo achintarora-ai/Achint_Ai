@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SiteImage } from "@/components/ui/site-image";
 import { Download } from "lucide-react";
 import {
   dataScienceHandbook,
@@ -28,7 +28,7 @@ export function LearningResources() {
           >
             <div className="flex items-center gap-3">
               <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--background)]">
-                <Image
+                <SiteImage
                   src={`https://cdn.simpleicons.org/${platform.iconSlug}`}
                   alt=""
                   width={22}

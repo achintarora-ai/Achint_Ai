@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SiteImage } from "@/components/ui/site-image";
 import Link from "next/link";
 import { researchArticles } from "@/data/research";
 import { formatDate, coverImageClass } from "@/lib/utils";
@@ -35,7 +35,7 @@ export function ResearchPreview() {
             >
               {article.coverImage && (
                 <div className="relative aspect-[16/9] border-b border-[var(--border)] bg-[var(--background)]">
-                  <Image
+                  <SiteImage
                     src={article.coverImage}
                     alt=""
                     fill

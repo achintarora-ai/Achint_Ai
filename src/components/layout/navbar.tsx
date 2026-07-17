@@ -75,12 +75,12 @@ export function Navbar() {
           >
             <LinkedinIcon className="h-4 w-4" />
           </a>
-          <a
+          <Link
             href="/resume"
             className="hidden rounded-full border border-[var(--border)] px-3 py-1.5 text-sm font-semibold hover:border-[var(--accent)] sm:inline-flex"
           >
             Résumé
-          </a>
+          </Link>
           <Link
             href="/assistant"
             className="hidden rounded-full bg-[var(--accent)] px-3 py-1.5 text-sm font-semibold text-[#06110c] hover:opacity-92 sm:inline-flex"
@@ -121,6 +121,20 @@ export function Navbar() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href="/resume"
+                onClick={() => setOpen(false)}
+                className={cn(
+                  "block rounded-md px-3 py-2 text-sm",
+                  isActive("/resume")
+                    ? "bg-[var(--accent-soft)] text-[var(--accent)]"
+                    : "hover:bg-[var(--surface)]",
+                )}
+              >
+                Résumé
+              </Link>
+            </li>
           </ul>
         </nav>
       )}

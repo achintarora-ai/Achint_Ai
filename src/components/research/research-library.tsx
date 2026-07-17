@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
+import { SiteImage } from "@/components/ui/site-image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { AssetLink } from "@/components/ui/asset-link";
 import {
-  externalResearchLinks,
   researchArticles,
   researchCategories,
   type ResearchCategory,
@@ -49,7 +49,7 @@ export function ResearchLibrary() {
           >
             {article.coverImage && (
               <div className="relative aspect-[16/9] overflow-hidden border-b border-[var(--border)] bg-[var(--background)]">
-                <Image
+                <SiteImage
                   src={article.coverImage}
                   alt=""
                   fill
@@ -97,50 +97,20 @@ export function ResearchLibrary() {
                   Read article
                 </Link>
                 {article.pdfPath && (
-                  <a
+                  <AssetLink
                     href={article.pdfPath}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-[var(--muted)] hover:text-[var(--accent)]"
                   >
                     PDF
-                  </a>
-                )}
-                {article.externalUrl && (
-                  <a
-                    href={article.externalUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-[var(--muted)] hover:text-[var(--accent)]"
-                  >
-                    External
-                  </a>
+                  </AssetLink>
                 )}
               </div>
             </div>
           </article>
         ))}
       </div>
-
-      <section className="mt-12 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6">
-        <h2 className="font-[family-name:var(--font-display)] text-2xl font-medium tracking-[-0.02em]">
-          Predictive Tech Labs links
-        </h2>
-        <ul className="mt-4 space-y-2">
-          {externalResearchLinks.map((link) => (
-            <li key={link.url}>
-              <a
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium text-[var(--accent)] hover:underline"
-              >
-                {link.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
     </div>
   );
 }

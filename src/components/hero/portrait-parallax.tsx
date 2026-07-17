@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { SiteImage } from "@/components/ui/site-image";
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -80,7 +80,7 @@ export function PortraitParallax({
         }}
       >
         {hasImage ? (
-          <Image
+          <SiteImage
             src={src}
             alt={alt}
             fill
