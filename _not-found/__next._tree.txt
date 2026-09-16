@@ -1,0 +1,2 @@
+:HL["/Achint_Ai/_next/static/chunks/2bh53o9gj9j0x.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":4160,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"Mme_4B4n3RAuox4AjI9h3"}

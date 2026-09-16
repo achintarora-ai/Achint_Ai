@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://achintarora-ai.github.io/Achint_Ai/sitemap.xml

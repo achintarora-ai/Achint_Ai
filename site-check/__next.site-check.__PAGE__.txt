@@ -1,0 +1,24 @@
+1:"$Sreact.fragment"
+2:I[47257,["/Achint_Ai/_next/static/chunks/1ma9vqr41rkj_.js","/Achint_Ai/_next/static/chunks/243tgoepft_7_.js","/Achint_Ai/_next/static/chunks/0zmszvwvk-gxl.js"],"ClientPageRoot"]
+3:I[25085,["/Achint_Ai/_next/static/chunks/1ma9vqr41rkj_.js","/Achint_Ai/_next/static/chunks/243tgoepft_7_.js","/Achint_Ai/_next/static/chunks/0zmszvwvk-gxl.js","/Achint_Ai/_next/static/chunks/21p2orl_izg5f.js"],"default"]
+6:I[97367,["/Achint_Ai/_next/static/chunks/1ma9vqr41rkj_.js","/Achint_Ai/_next/static/chunks/243tgoepft_7_.js","/Achint_Ai/_next/static/chunks/0zmszvwvk-gxl.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+b:I[97367,["/Achint_Ai/_next/static/chunks/1ma9vqr41rkj_.js","/Achint_Ai/_next/static/chunks/243tgoepft_7_.js","/Achint_Ai/_next/static/chunks/0zmszvwvk-gxl.js"],"ViewportBoundary"]
+c:I[97367,["/Achint_Ai/_next/static/chunks/1ma9vqr41rkj_.js","/Achint_Ai/_next/static/chunks/243tgoepft_7_.js","/Achint_Ai/_next/static/chunks/0zmszvwvk-gxl.js"],"MetadataBoundary"]
+d:I[27201,["/Achint_Ai/_next/static/chunks/1ma9vqr41rkj_.js","/Achint_Ai/_next/static/chunks/243tgoepft_7_.js","/Achint_Ai/_next/static/chunks/0zmszvwvk-gxl.js"],"IconMark"]
+f:I[39756,["/Achint_Ai/_next/static/chunks/1ma9vqr41rkj_.js","/Achint_Ai/_next/static/chunks/243tgoepft_7_.js","/Achint_Ai/_next/static/chunks/0zmszvwvk-gxl.js"],"default"]
+10:I[37457,["/Achint_Ai/_next/static/chunks/1ma9vqr41rkj_.js","/Achint_Ai/_next/static/chunks/243tgoepft_7_.js","/Achint_Ai/_next/static/chunks/0zmszvwvk-gxl.js"],"default"]
+a:X
+12:X
+12:C
+0:{"buildId":"Mme_4B4n3RAuox4AjI9h3","data":[{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/Achint_Ai/_next/static/chunks/21p2orl_izg5f.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":"$@9","staleTime":"$a","varyParams":null},{"rsc":["$","$1","h",{"children":[null,["$","$Lb",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$Lc",null,{"children":["$","$7",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Achint Pal Singh | AI Engineer"}],["$","meta","1",{"name":"description","content":"AI engineer in Toronto building document intelligence, retrieval-augmented generation, agent workflows, and reliable cloud services."}],["$","meta","2",{"name":"author","content":"Achint Pal Singh"}],["$","meta","3",{"name":"keywords","content":"AI System Engineer,AI Engineer,Generative AI Engineer,Machine Learning Engineer,Junior MLOps Engineer,Data Scientist,Python Backend Engineer,RAG,LLM,Automation,AI Agents,Toronto"}],["$","link","4",{"rel":"canonical","href":"https://achintarora-ai.github.io/Achint_Ai/"}],["$","meta","5",{"property":"og:title","content":"Achint Pal Singh | AI Engineer"}],["$","meta","6",{"property":"og:description","content":"AI engineer in Toronto building document intelligence, retrieval-augmented generation, agent workflows, and reliable cloud services."}],["$","meta","7",{"property":"og:url","content":"https://achintarora-ai.github.io/Achint_Ai/"}],["$","meta","8",{"property":"og:site_name","content":"Achint Pal Singh Portfolio"}],["$","meta","9",{"property":"og:locale","content":"en_CA"}],["$","meta","10",{"property":"og:image","content":"https://achintarora-ai.github.io/Achint_Ai/images/achint/banner-green.png"}],["$","meta","11",{"property":"og:type","content":"website"}],["$","meta","12",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","13",{"name":"twitter:title","content":"Achint Pal Singh | AI Engineer"}],["$","meta","14",{"name":"twitter:description","content":"AI engineer in Toronto building document intelligence, retrieval-augmented generation, agent workflows, and reliable cloud services."}],["$","meta","15",{"name":"twitter:image","content":"https://achintarora-ai.github.io/Achint_Ai/images/achint/banner-green.png"}],["$","link","16",{"rel":"icon","href":"/Achint_Ai/favicon.ico?favicon.2vob68tjqpejf.ico","sizes":"256x256","type":"image/x-icon"}],["$","$Ld","17",{}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"isPartial":"$@e","staleTime":"$a","varyParams":null},{"rsc":["$","$1","c",{"children":[null,["$","$Lf",null,{"parallelRouterKey":"children","template":["$","$L10",null,{}]}]]}],"isPartial":"$@11","staleTime":"$a","varyParams":"$12"}],"isUpgradeableISRFallback":false,"a":"$@13","rootVaryParams":null,"needsRuntimeRequest":"$@14"}
+4:{}
+5:"$0:data:0:rsc:props:children:0:props:serverProvidedParams:params"
+8:null
+14:true
+a:300
+a:C
+13:0
+e:"$undefined"
+11:"$undefined"
+9:"$undefined"

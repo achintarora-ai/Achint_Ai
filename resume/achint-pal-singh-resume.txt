@@ -1,0 +1,30 @@
+ACHINT PAL SINGH
+Toronto, ON  ·  365-440-4319  ·  achintpalsingh94@gmail.com
+linkedin.com/in/achint-pal-singh-1a0114288  ·  predictivetechlabs.com  ·  legid.ca
+Summary
+AI engineer who ships production machine learning and RAG systems end-to-end, from data pipelines to deployment. Conceived and built the backend of LEGID (legid.ca), a live legal AI marketplace on Google Cloud: REST APIs, vector database retrieval, LLM integration, Docker, Terraform, CI/CD. Author of published engineering articles on vector-search benchmarking and LLM token economics. Computer Science graduate (2026), Algoma University.
+Experience
+AI Engineer — PredictiveTechLabs, Toronto	Nov 2025 – Present
+Took a product from my own pitch to a live marketplace serving clients and lawyers across Canadian and US jurisdictions by originating WeKnowRights and building the production backend of LEGID (legid.ca): jurisdiction-aware chat, RAG answering where every answer resolves to a cited legal source, and a client→lawyer handoff that turns the chat into the intake memo.
+Made [N]+ US and Canadian legal documents searchable in plain language by building ETL and data ingestion pipelines for PDF, DOCX, Excel, and images (Tesseract OCR with automatic offence-number extraction), embedded via OpenAI text-embedding-3-small, SentenceTransformers, and CLIP into a FAISS vector database.
+Cut lawyer drafting time by roughly 4 hours per closing by building the generation and audit pipeline for 6 Ontario real-estate closing document types: a curated template library, 54+ deterministic rulebook checks, and an LLM semantic-review pass with statute-anchored redlines at sub-100 ms audit latency.
+Extended answers beyond the static index to live legal sources by adding agentic tool use: LLM function calling wired to web-search APIs for real-time data extraction.
+Kept multi-session answers consistent and private per user by engineering persistent legal memory (conversation, case, and project) with cross-user isolation, verified by a pytest end-to-end harness.
+Keep every release shippable by owning the cloud infrastructure end-to-end: GCP (Cloud Run, GCS, Vertex AI, Cloud Functions, Firestore), Docker, Terraform IaC, and CI/CD pipelines from commit to deploy.
+Selected Technical Writing
+Vector Search Benchmarking for Production RAG  ·  retrieval quality and latency benchmarks
+Practical AI: Vector Search Benchmarking  ·  evaluating embedding and vector-store choices
+Claude Opus 4.8 Token Economics  ·  how tokenization drives LLM costs in production
+Projects
+WeKnowRights Legal RAG Backend — the FastAPI + FAISS service powering LEGID above: ingestion endpoints, OCR extraction, similarity search, and cited RAG answering.
+Personal Finance Management System — full-stack web application (built and deployed the website end-to-end): transaction categorization, monthly budgeting, goal setting, and financial report generation. github.com/achinttt001
+Education
+B.Sc. Computer Science — Algoma University	Sep 2023 – Apr 2026
+Coursework in Java, data structures and algorithms, and AI and machine learning, including agentic AI patterns.
+Final-year research: benchmarked four open-source embedding models for vector search quality and latency; published on the PredictiveTechLabs blog — read the study
+Technical Skills
+Google Cloud (daily driver): Cloud Run, Cloud Functions, Compute Engine, App Engine, Cloud Storage (all classes through Archive), Cloud SQL, Firestore, BigQuery, Vertex AI and Vector Search, Google AI Studio, AutoML, Vision, Natural Language, Speech and Translation APIs, Dataflow, IAM and service accounts, KMS, Secret Manager, Cloud Build, Artifact Registry, Cloud Monitoring, Load Balancing, CDN, Cloud DNS, VPN and Interconnect, gcloud SDK
+Azure (working knowledge): Virtual Machines, App Service, Container Apps, Azure Functions, Logic Apps, Blob Storage, Azure SQL, VNet, Load Balancer and Application Gateway, Azure DNS, Azure Machine Learning and AutoML, AI Foundry, Entra ID, Key Vault, Azure Monitor, Container Registry, Azure DevOps
+Languages and frameworks: Python is my strongest language, with FastAPI as my main framework for REST APIs (Flask as well); React on the front end; SQL and MySQL, Java, JavaScript, Bash, Terraform; Python data-visualization libraries for presenting results
+AI and data: RAG pipelines, embeddings and FAISS vector search, LangChain, prompt engineering and prompt design, retrieval benchmarking, Tesseract OCR; worked with OpenAI, Claude, and Gemini model families; deep independent research into how tokenization works and drives LLM cost, plus a study of the Hermes open-source agent framework; research familiarity with Databricks and Microsoft Fabric
+DevOps and tooling: Docker, Kubernetes, Git and GitHub including Git hooks, CI and CD with GitHub Actions and Cloud Build, YAML, at home in the terminal with the gcloud and Azure CLIs, Cursor, Claude Code, VS Code, Power BI
