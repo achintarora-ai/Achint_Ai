@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({
     ok: true,
     message:
-      "Thanks for reaching out. Your message was validated. You can also email directly if you need a faster reply.",
+      "Your email draft is ready. Open your email app and send it to complete your message. This endpoint does not deliver email.",
     mailto: `mailto:${siteConfig.email}?subject=${encodeURIComponent(
       `[Portfolio] ${subject}`,
     )}&body=${encodeURIComponent(

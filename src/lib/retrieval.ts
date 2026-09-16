@@ -5,6 +5,7 @@ import { profile } from "@/data/profile";
 import { projects } from "@/data/projects";
 import { cloudProviders, skillGroups } from "@/data/skills";
 import { siteConfig } from "@/data/site-config";
+import { retrieveHandbook } from "./handbook";
 
 export type KnowledgeChunk = {
   id: string;
@@ -34,7 +35,7 @@ function buildCorpus(): KnowledgeChunk[] {
       " ",
     ),
     weight: 1.4,
-    url: "/#about",
+    url: "/about",
   });
 
   for (const school of education) {
@@ -44,7 +45,7 @@ function buildCorpus(): KnowledgeChunk[] {
       title: `${school.degree} — ${school.school}`,
       text: `${school.school} ${school.degree} ${school.range} ${school.description} ${(school.activities ?? []).join(" ")} ${(school.skills ?? []).join(" ")} ${school.grade ?? ""}`,
       weight: 1.3,
-      url: "/#education",
+      url: "/about",
     });
   }
 
@@ -137,6 +138,13 @@ const BOOST_TERMS: Record<string, string[]> = {
 };
 
 export function retrievePortfolioContext(query: string, limit = 6) {
+  const handbookRelevant =
+    /handbook|data science|explain|what is|regression|classification|clustering|numpy|pandas|statistics|overfit|gradient|neural|learning|train.test|probability/i.test(
+      query,
+    );
+  const handbook = handbookRelevant
+    ? retrieveHandbook(query, /handbook/i.test(query) ? 4 : 2)
+    : [];
   const normalizedQuery = normalize(query);
   const terms = normalizedQuery.split(" ").filter((t) => t.length > 2);
 
@@ -166,14 +174,20 @@ export function retrievePortfolioContext(query: string, limit = 6) {
     .slice(0, limit);
 
   if (scored.length === 0) {
+    if (handbook.length) return handbook;
     return CORPUS.filter((c) =>
-      ["profile-bio", "experience-ptl-engineer", "project-weknowrights"].includes(
-        c.id,
-      ),
+      [
+        "profile-bio",
+        "experience-ptl-engineer",
+        "project-weknowrights",
+      ].includes(c.id),
     );
   }
 
-  return scored.map((s) => s.chunk);
+  const portfolio = scored.map((s) => s.chunk);
+  return /handbook/i.test(query)
+    ? [...handbook, ...portfolio].slice(0, limit)
+    : [...portfolio.slice(0, limit - handbook.length), ...handbook];
 }
 
 export function formatContextForPrompt(chunks: KnowledgeChunk[]) {

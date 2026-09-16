@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArchitectureDiagram } from "@/components/projects/architecture-diagram";
 import { getProjectBySlug, projects } from "@/data/projects";
+import { CivicMatchDemo } from "@/components/projects/civicmatch-demo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -95,6 +96,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
         </div>
       </div>
 
+      {slug === "civicmatch" && <CivicMatchDemo />}
       <div className="mt-10 grid gap-8 lg:grid-cols-2">
         <section>
           <h2 className="text-2xl font-semibold">Problem</h2>

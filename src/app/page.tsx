@@ -1,153 +1,152 @@
-import { SiteImage } from "@/components/ui/site-image";
 import Link from "next/link";
 import { HeroSection } from "@/components/hero/hero-section";
-import { AboutSection } from "@/components/sections/about-section";
-import { EducationSection } from "@/components/sections/education-section";
-import { ExperiencePreview } from "@/components/sections/experience-preview";
-import { ProjectsPreview } from "@/components/sections/projects-preview";
-import { NeuralSkillsGraph } from "@/components/skills/neural-skills-graph";
-import { blogPosts } from "@/data/blogs";
-import { coverImageClass, formatDate } from "@/lib/utils";
+import { projects } from "@/data/projects";
+import { experience } from "@/data/experience";
+import { researchArticles } from "@/data/research";
 
 export default function HomePage() {
-  const featuredBlogs = [...blogPosts]
-    .sort((a, b) => {
-      if (a.slug === "benchmarking-vector-search-startup-chatbots") return -1;
-      if (b.slug === "benchmarking-vector-search-startup-chatbots") return 1;
-      return b.date.localeCompare(a.date);
-    })
-    .slice(0, 3);
-
   return (
-    <>
+    <div className="editorial-home">
       <HeroSection />
-
-      <section className="border-b border-[var(--border)]">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-          <NeuralSkillsGraph />
-        </div>
-      </section>
-
-      <AboutSection />
-      <EducationSection />
-      <section className="border-b border-[var(--border)]">
-        <div className="mx-auto max-w-6xl px-4 py-12 md:px-6">
-          <div className="flex flex-col items-start justify-between gap-4 rounded-[1.35rem] border border-[var(--border)] bg-[var(--surface)] p-6 md:flex-row md:items-center md:p-8">
-            <div>
-              <p className="text-xs font-semibold tracking-[0.14em] text-[var(--claude)]">
-                · FOR LEARNERS
-              </p>
-              <h2 className="mt-2 font-[family-name:var(--font-display)] text-2xl font-medium tracking-[-0.02em]">
-                Download the Data Science Journey Handbook
-              </h2>
-              <p className="mt-2 max-w-xl text-sm text-[var(--muted)]">
-                A practical companion from Achint’s data science path — free for
-                aspiring data scientists.
-              </p>
-            </div>
-            <Link
-              href="/resources/data-science-handbook.pdf"
-              className="rounded-full bg-[var(--accent)] px-5 py-2.5 text-sm font-semibold text-[#06110c]"
-            >
-              Download PDF
-            </Link>
-          </div>
-        </div>
-      </section>
-      <ExperiencePreview />
-      <ProjectsPreview />
-
-      <section className="border-b border-[var(--border)] bg-[var(--surface)]">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <p className="text-xs font-semibold tracking-[0.16em] text-[var(--claude)]">
-                · BLOGS
-              </p>
-              <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-medium tracking-[-0.03em] md:text-4xl">
-                Research and writing
-              </h2>
-            </div>
-            <Link
-              href="/blogs"
-              className="hidden text-sm font-semibold text-[var(--claude)] hover:underline sm:inline"
-            >
-              All blogs
-            </Link>
-          </div>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {featuredBlogs.map((post) => (
-              <article
-                key={post.slug}
-                className="overflow-hidden rounded-[1.25rem] border border-[var(--border)] bg-[var(--background)]"
-              >
-                {post.coverImage && (
-                  <div className="relative aspect-[16/9] border-b border-[var(--border)] bg-[var(--surface)]">
-                    <SiteImage
-                      src={post.coverImage}
-                      alt=""
-                      fill
-                      className={coverImageClass(post.coverImage)}
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                    />
-                  </div>
-                )}
-                <div className="p-5">
-                <p className="text-xs text-[var(--muted)]">
-                  {formatDate(post.date)} · {post.readingTimeMinutes} min
-                </p>
-                <h3 className="mt-2 font-[family-name:var(--font-display)] text-lg font-medium leading-snug tracking-[-0.02em]">
-                  {post.title}
-                </h3>
-                <p className="mt-2 line-clamp-3 text-sm text-[var(--muted)]">
-                  {post.summary}
-                </p>
-                <Link
-                  href={`/blogs/${post.slug}`}
-                  className="mt-4 inline-flex text-sm font-semibold text-[var(--claude)] hover:underline"
-                >
-                  Read post
-                </Link>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-4 py-16 md:flex-row md:items-center md:px-6 md:py-20">
+      <div className="expertise-strip">
+        <span>BUILT ACROSS THE STACK</span>
+        <p>Python / FastAPI / RAG / AI Agents / GCP / Azure</p>
+      </div>
+      <section className="editorial-section" id="work">
+        <div className="section-heading">
           <div>
-            <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium tracking-[-0.03em]">
-              Need systems that automate the hard parts?
-            </h2>
-            <p className="mt-3 max-w-2xl text-[var(--muted)]">
-              Explore automated pipelines, product case studies, research, or ask
-              the portfolio assistant for recruiter-ready answers.
-            </p>
+            <p className="eyebrow">01 / SELECTED WORK</p>
+            <h2>From problem to production.</h2>
           </div>
-          <div className="flex flex-wrap gap-3">
+          <Link className="text-link" href="/projects">
+            All projects ↗
+          </Link>
+        </div>
+        <div className="work-grid">
+          {projects.slice(0, 3).map((project, i) => (
             <Link
-              href="/skills"
-              className="rounded-full bg-[var(--claude)] px-4 py-2.5 text-sm font-semibold text-white"
+              href={`/projects/${project.slug}`}
+              className={`work-card work-card-${i}`}
+              key={project.id}
             >
-              View Skills
+              <div className="work-art" aria-hidden="true">
+                <span className="work-number">0{i + 1}</span>
+                <div className="system-flow">
+                  {(i === 0
+                    ? ["DOCUMENTS", "RETRIEVAL", "GROUNDED ANSWERS"]
+                    : i === 1
+                      ? [
+                          "PDF / IMAGE",
+                          "OCR + EMBEDDINGS",
+                          "SEARCHABLE KNOWLEDGE",
+                        ]
+                      : ["TEMPLATES", "54+ CHECKS", "REVIEW & AUDIT"]
+                  ).map((x) => (
+                    <span key={x}>{x}</span>
+                  ))}
+                </div>
+                <span className="work-arrow">↗</span>
+              </div>
+              <div className="work-caption">
+                <p className="eyebrow">{project.status}</p>
+                <h3>{project.name}</h3>
+                <p>{project.tagline}</p>
+                <div className="stack-line">
+                  {project.stack.slice(0, 4).join(" · ")}
+                </div>
+              </div>
             </Link>
-            <Link
-              href="/assistant"
-              className="rounded-full border border-[var(--border)] px-4 py-2.5 text-sm font-semibold"
-            >
-              Ask Achint AI
-            </Link>
-            <Link
-              href="/contact"
-              className="rounded-full border border-[var(--border)] px-4 py-2.5 text-sm font-semibold"
-            >
-              Contact
-            </Link>
-          </div>
+          ))}
         </div>
       </section>
-    </>
+      <section className="editorial-section about-editorial">
+        <div>
+          <p className="eyebrow">02 / HOW I WORK</p>
+          <h2>
+            The model is only
+            <br />
+            <em>part of the system.</em>
+          </h2>
+        </div>
+        <div>
+          <p className="large-copy">
+            I care about what happens around it: the quality of the data, the
+            evidence behind an answer, and the reliability of every release.
+          </p>
+          <p className="muted-copy">
+            My work spans legal AI, multimodal search, document automation, and
+            applied machine learning. I studied Computer Science at Algoma
+            University and build across the backend, retrieval, evaluation, and
+            deployment layers.
+          </p>
+          <Link className="text-link" href="/about">
+            More about me ↗
+          </Link>
+        </div>
+      </section>
+      <section className="editorial-section">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">03 / RESEARCH & FIELD NOTES</p>
+            <h2>Ideas, with evidence.</h2>
+          </div>
+          <Link href="/research" className="text-link">
+            Research library ↗
+          </Link>
+        </div>
+        <div className="writing-list">
+          {researchArticles.slice(0, 3).map((article, i) => (
+            <Link
+              className="writing-row"
+              key={article.slug}
+              href={`/blogs/${article.slug}`}
+            >
+              <span className="writing-index">0{i + 1}</span>
+              <div>
+                <p className="eyebrow">
+                  {article.status} · {article.readingTimeMinutes} MIN READ
+                </p>
+                <h3>{article.title}</h3>
+                <p>{article.summary}</p>
+              </div>
+              <span className="writing-arrow">↗</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+      <section className="editorial-section">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">04 / EXPERIENCE</p>
+            <h2>Building, learning, shipping.</h2>
+          </div>
+          <Link href="/experience" className="text-link">
+            Full experience ↗
+          </Link>
+        </div>
+        {experience.slice(0, 3).map((item) => (
+          <div className="experience-row" key={item.id}>
+            <p>{item.range}</p>
+            <div>
+              <h3>{item.role}</h3>
+              <p>{item.company}</p>
+            </div>
+            <p>{item.summary}</p>
+          </div>
+        ))}
+      </section>
+      <section className="editorial-section contact-editorial">
+        <p className="eyebrow">LET’S BUILD SOMETHING USEFUL</p>
+        <h2>
+          Good systems start
+          <br />
+          with a conversation.
+        </h2>
+        <Link href="/contact" className="editorial-button">
+          Get in touch ↗
+        </Link>
+        <p>Open to AI engineering opportunities in Toronto and remotely.</p>
+      </section>
+    </div>
   );
 }

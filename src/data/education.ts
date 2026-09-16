@@ -19,8 +19,8 @@ export const education: EducationItem[] = [
     school: "Algoma University",
     degree: "Bachelor's degree, Computer Science",
     start: "September 2023",
-    end: "May 2026",
-    range: "September 2023 – May 2026",
+    end: "April 2026",
+    range: "September 2023 – April 2026",
     logo: "/images/education/algoma-university.png",
     activities: [
       "Computer Science Student Association",

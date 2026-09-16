@@ -1,0 +1,110 @@
+[
+  {
+    "track": "recreation",
+    "items": 500,
+    "synthetic_users": 600,
+    "train_users": 420,
+    "validation_users": 90,
+    "test_users": 90,
+    "seed": 42,
+    "epochs": 180,
+    "latent_dimensions": 24,
+    "loss_start": 6.427553856386458,
+    "loss_end": 0.8119768874686591,
+    "recall_at_10": 0.6322222222222221,
+    "validation_recall_at_10": 0.6488888888888888,
+    "untrained_recall_at_10": 0.011111111111111112,
+    "random_recall_at_10": 0.023333333333333334,
+    "content_oracle_recall_at_10": 1.0,
+    "evaluation": "Held-out synthetic users, same item catalog. No claim of human preference quality or cold-start validation.",
+    "limitations": [
+      "Preferences and positives are synthetic and derived from content similarity.",
+      "Content baseline is the labeling oracle and has an inherent advantage.",
+      "No real user interactions, randomized trial, causal benefit, or fairness validation.",
+      "Resource availability and eligibility must be checked at source."
+    ],
+    "provenance": {
+      "source": "https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show?id=registered-programs-and-drop-in-courses-offering",
+      "modified": "2026-09-10T21:38:54.830178",
+      "license": "License not specified",
+      "raw_records": 16529,
+      "definition": "Toronto recreation activity catalog; deduplicated by activity title, not a live booking feed.",
+      "fetched_at": "2026-09-16T02:43:32.524255+00:00",
+      "catalog_sha256": "11fd8fd03cd9c970eb5fe9743ff79bf054d3eb87907e772d1fc076911c566fe4"
+    }
+  },
+  {
+    "track": "climate",
+    "items": 277,
+    "synthetic_users": 600,
+    "train_users": 420,
+    "validation_users": 90,
+    "test_users": 90,
+    "seed": 42,
+    "epochs": 180,
+    "latent_dimensions": 24,
+    "loss_start": 5.768454981271348,
+    "loss_end": 0.3180733223797129,
+    "recall_at_10": 0.5866666666666667,
+    "validation_recall_at_10": 0.601111111111111,
+    "untrained_recall_at_10": 0.02,
+    "random_recall_at_10": 0.03666666666666667,
+    "content_oracle_recall_at_10": 1.0,
+    "evaluation": "Held-out synthetic users, same item catalog. No claim of human preference quality or cold-start validation.",
+    "limitations": [
+      "Preferences and positives are synthetic and derived from content similarity.",
+      "Content baseline is the labeling oracle and has an inherent advantage.",
+      "No real user interactions, randomized trial, causal benefit, or fairness validation.",
+      "Resource availability and eligibility must be checked at source."
+    ],
+    "provenance": {
+      "source": "https://open.canada.ca/data/en/api/3/action/package_search",
+      "queries": [
+        "climate energy",
+        "renewable energy",
+        "emissions"
+      ],
+      "definition": "Public government DATA RESOURCES for researchers and learners. Not jobs or courses.",
+      "license": "See individual source dataset license.",
+      "fetched_at": "2026-09-16T02:43:32.524255+00:00",
+      "catalog_sha256": "bddd10ce1e754879f924d57489aef50beded3843d46a5629634459797e4e0db9"
+    }
+  },
+  {
+    "track": "skills",
+    "items": 291,
+    "synthetic_users": 600,
+    "train_users": 420,
+    "validation_users": 90,
+    "test_users": 90,
+    "seed": 42,
+    "epochs": 180,
+    "latent_dimensions": 24,
+    "loss_start": 5.912181722793093,
+    "loss_end": 0.3158083654460734,
+    "recall_at_10": 0.6344444444444445,
+    "validation_recall_at_10": 0.6455555555555554,
+    "untrained_recall_at_10": 0.012222222222222223,
+    "random_recall_at_10": 0.04111111111111111,
+    "content_oracle_recall_at_10": 1.0,
+    "evaluation": "Held-out synthetic users, same item catalog. No claim of human preference quality or cold-start validation.",
+    "limitations": [
+      "Preferences and positives are synthetic and derived from content similarity.",
+      "Content baseline is the labeling oracle and has an inherent advantage.",
+      "No real user interactions, randomized trial, causal benefit, or fairness validation.",
+      "Resource availability and eligibility must be checked at source."
+    ],
+    "provenance": {
+      "source": "https://open.canada.ca/data/en/api/3/action/package_search",
+      "queries": [
+        "employment skills",
+        "education training",
+        "labour market"
+      ],
+      "definition": "Public government DATA RESOURCES for researchers and learners. Not jobs or courses.",
+      "license": "See individual source dataset license.",
+      "fetched_at": "2026-09-16T02:43:32.524255+00:00",
+      "catalog_sha256": "f26c4c85609417252b694006e56ab4d7d34c15c725197bb9eee1e4028cf057bd"
+    }
+  }
+]

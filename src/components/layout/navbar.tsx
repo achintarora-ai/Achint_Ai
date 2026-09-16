@@ -13,7 +13,9 @@ const links = [
   { href: "/skills", label: "Skills" },
   { href: "/experience", label: "Experience" },
   { href: "/projects", label: "Projects" },
-  { href: "/blogs", label: "Blogs" },
+  { href: "/research", label: "Research" },
+  { href: "/blogs", label: "Writing" },
+  { href: "/daily", label: "Daily" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -39,7 +41,7 @@ export function Navbar() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-0 xl:flex" aria-label="Primary">
           {links.map((link) => (
             <Link
               key={link.href}
@@ -83,13 +85,13 @@ export function Navbar() {
           </Link>
           <Link
             href="/assistant"
-            className="hidden rounded-full bg-[var(--accent)] px-3 py-1.5 text-sm font-semibold text-[#06110c] hover:opacity-92 sm:inline-flex"
+            className="hidden rounded-full bg-[var(--accent)] px-3 py-1.5 text-sm font-semibold text-[var(--background)] hover:opacity-92 sm:inline-flex"
           >
             Ask AI
           </Link>
           <button
             type="button"
-            className="rounded-md p-2 text-[var(--muted)] hover:bg-[var(--surface)] lg:hidden"
+            className="rounded-md p-2 text-[var(--muted)] hover:bg-[var(--surface)] xl:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
@@ -101,7 +103,7 @@ export function Navbar() {
 
       {open && (
         <nav
-          className="border-t border-[var(--border)] bg-[var(--background)] px-4 py-3 lg:hidden"
+          className="border-t border-[var(--border)] bg-[var(--background)] px-4 py-3 xl:hidden"
           aria-label="Mobile"
         >
           <ul className="flex flex-col gap-1">

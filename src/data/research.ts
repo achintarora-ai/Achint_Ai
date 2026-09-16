@@ -1,3 +1,5 @@
+import { technicalStudies } from "./technical-studies";
+
 export type ResearchStatus =
   | "Published"
   | "Research"
@@ -32,6 +34,7 @@ export type ResearchArticle = {
 };
 
 export const researchArticles: ResearchArticle[] = [
+  ...technicalStudies,
   {
     slug: "benchmarking-vector-search-startup-chatbots",
     title:
@@ -256,7 +259,7 @@ Cloud latency, cost, and editor-usability benchmarks must still be executed befo
       "model routing",
     ],
     categories: ["AI Economics", "AI Models"],
-    status: "Published",
+    status: "Guide",
     coverImage: "/images/research/token-economics.png",
     pdfPath: "/research/claude-token-economics.pdf",
     excerptMarkdown: `
@@ -327,7 +330,7 @@ Treat cost controls as part of system design — caching, truncation policies, b
       "compliance",
     ],
     categories: ["Agents", "Governance", "Compliance"],
-    status: "Published",
+    status: "Guide",
     coverImage: "/images/research/hermes-agents.png",
     excerptMarkdown: `
 ## Why durable memory changes agent design

@@ -1,0 +1,9 @@
+.git
+.env*
+.next
+node_modules
+tmp
+output
+source-material
+projects/civicmatch/data
+projects/civicmatch/artifacts

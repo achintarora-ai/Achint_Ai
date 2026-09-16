@@ -10,5 +10,5 @@ function resolveSrc(src: ImageProps["src"]): ImageProps["src"] {
 
 /** Next/Image wrapper that applies GitHub Pages basePath to local assets. */
 export function SiteImage(props: ImageProps) {
-  return <Image {...props} src={resolveSrc(props.src)} />;
+  return <Image {...props} alt={props.alt} src={resolveSrc(props.src)} />;
 }

@@ -3,8 +3,8 @@ import { siteConfig } from "./site-config";
 export const profile = {
   ...siteConfig,
   biography: [
-    `${siteConfig.name} is an AI System Engineer in ${siteConfig.location} who builds production systems that automate complex work — from data ingestion and RAG retrieval to agent workflows and cloud deployment.`,
-    `He studied Computer Science at ${siteConfig.education.school} (${siteConfig.education.range}), with coursework in data structures, AI/ML, and agentic AI patterns, plus published research on embedding/vector-search quality and latency.`,
+    `${siteConfig.name} is an AI Systems Engineer in ${siteConfig.location} who builds production systems that automate complex work — from data ingestion and RAG retrieval to agent workflows and cloud deployment.`,
+    `He studied Computer Science at ${siteConfig.education.school} (${siteConfig.education.range}), with coursework in data structures, AI/ML, and agentic AI patterns, and writes independent technical studies on retrieval quality and latency.`,
     `At ${siteConfig.company} he originated WeKnowRights and built the production backend of LEGID (legid.ca): automated jurisdiction-aware chat, cited RAG answering, client→lawyer handoff workflows, OCR ingestion, FAISS retrieval, and GCP infrastructure with Docker, Terraform, and CI/CD.`,
     "He writes about vector-search benchmarking and LLM token economics, and focuses on systems that run reliably without manual babysitting — not one-off demos.",
   ],
@@ -48,9 +48,9 @@ export const profile = {
       hook: "Latency, Recall@5, nDCG@5, and cost across 20 configurations.",
     },
     {
-      slug: "claude-fable-5-launch",
-      title: "Claude Fable 5 & Mythos 5",
-      hook: "When to use each frontier model in production.",
+      slug: "bounded-agent-workflows",
+      title: "Designing Bounded Agent Workflows",
+      hook: "Explicit permissions, tool contracts, and recoverable execution.",
     },
     {
       slug: "how-much-does-a-rag-chatbot-cost-2026",

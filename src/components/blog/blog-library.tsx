@@ -35,6 +35,7 @@ export function BlogLibrary() {
             key={filter}
             type="button"
             onClick={() => setActive(filter)}
+            aria-pressed={active === filter}
             className={cn(
               "rounded-full px-3 py-1.5 text-sm font-medium transition",
               active === filter

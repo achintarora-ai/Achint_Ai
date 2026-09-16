@@ -34,9 +34,7 @@ export default function ContactPage() {
                   <Mail className="h-4 w-4" /> {siteConfig.email}
                 </a>
               </li>
-              <li className="text-[var(--muted)]">
-                Phone: {siteConfig.phone}
-              </li>
+              <li className="text-[var(--muted)]">Phone: {siteConfig.phone}</li>
               <li>
                 <a
                   href={siteConfig.social.linkedin}
@@ -79,10 +77,9 @@ export default function ContactPage() {
         </aside>
 
         <div className="rounded-2xl border border-[var(--border)] bg-[var(--background)] p-6">
-          <h2 className="text-xl font-semibold">Send a message</h2>
+          <h2 className="text-xl font-semibold">Start a conversation</h2>
           <p className="mt-2 text-sm text-[var(--muted)]">
-            Validated server-side with basic spam prevention. No database is
-            required for this first version.
+            Tell me about your project, team, or the problem you’re working on.
           </p>
           <div className="mt-6">
             <ContactForm />

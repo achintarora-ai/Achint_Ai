@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { blogPosts } from "@/data/blogs";
 import { projects } from "@/data/projects";
 import { siteConfig } from "@/data/site-config";
@@ -102,10 +102,6 @@ export default function SiteCheckPage() {
     setRunning(false);
   };
 
-  useEffect(() => {
-    void runChecks();
-  }, []);
-
   const passCount =
     routeResults.filter((r) => r.status === "pass").length +
     assetResults.filter((r) => r.status === "pass").length;
@@ -137,7 +133,7 @@ export default function SiteCheckPage() {
           disabled={running}
           className="rounded-full bg-[var(--accent)] px-5 py-2.5 text-sm font-semibold text-[#06110c] disabled:opacity-60"
         >
-          {running ? "Running…" : "Re-run checks"}
+          {running ? "Running…" : "Run checks"}
         </button>
         <Link
           href="/"

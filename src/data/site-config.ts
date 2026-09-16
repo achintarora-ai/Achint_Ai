@@ -14,8 +14,8 @@ export const siteConfig = {
     degree: "Bachelor's degree, Computer Science",
     school: "Algoma University",
     start: "September 2023",
-    end: "May 2026",
-    range: "September 2023 – May 2026",
+    end: "April 2026",
+    range: "September 2023 – April 2026",
   },
   internship: {
     role: "AI/ML Intern",
@@ -32,7 +32,7 @@ export const siteConfig = {
     range: "July 2026 – Present",
   },
   // Résumé lists continuous AI Engineer role Nov 2025 – Present at PredictiveTechLabs
-  resumeRoleSummary: "AI Engineer — Predictive Tech Labs · Nov 2025 – Present",
+  resumeRoleSummary: "AI Systems Engineer — Predictive Tech Labs · July 2026 – Present",
   availability:
     "Open to AI engineering, generative AI, MLOps, and backend-focused opportunities in Toronto or remote.",
   interests: [
@@ -63,7 +63,7 @@ export const siteConfig = {
   linkedinHeadline:
     "AI Engineer | Automating the small things that reduce human effort | Agents · RAG · AWS · GCP · Azure · Databricks",
   supportingText:
-    "As an AI engineer, I admire automating single things that reduce human effort — from LEGID legal AI backends and agent workflows to vector-search research and cloud-native MLOps.",
+    "AI engineer in Toronto building document intelligence, retrieval-augmented generation, agent workflows, and reliable cloud services.",
   specialties: [
     "AI Systems Engineering",
     "Workflow & Agent Automation",
@@ -73,7 +73,7 @@ export const siteConfig = {
   ],
   credibility: [
     "AI System Engineer who automates production AI pipelines",
-    "B.Sc. Computer Science, Algoma University (Sep 2023 – May 2026)",
+    "B.Sc. Computer Science, Algoma University (Sep 2023 – Apr 2026)",
     "Builder of LEGID / WeKnowRights legal AI systems",
     "Author of vector-search and LLM token-economics research",
   ],

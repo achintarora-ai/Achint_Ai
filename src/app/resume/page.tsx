@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Download, FileText } from "lucide-react";
+import { Download } from "lucide-react";
 import { AssetLink } from "@/components/ui/asset-link";
 import { siteConfig } from "@/data/site-config";
 import { publicPath } from "@/lib/paths";
@@ -32,14 +32,6 @@ export default function ResumePage() {
         >
           <Download className="h-4 w-4" />
           Download PDF
-        </AssetLink>
-        <AssetLink
-          href={siteConfig.resumeDocxPath}
-          download
-          className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-5 py-2.5 text-sm font-semibold hover:border-[var(--accent)]"
-        >
-          <FileText className="h-4 w-4" />
-          Download DOCX
         </AssetLink>
         <Link
           href="/contact"

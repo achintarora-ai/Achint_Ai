@@ -1,11 +1,12 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { siteConfig } from "@/data/site-config";
 
 export function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
-    "idle",
-  );
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
   const [message, setMessage] = useState("");
   const [mailto, setMailto] = useState<string | null>(null);
 
@@ -24,36 +25,24 @@ export function ContactForm() {
       company: String(form.get("company") || ""),
     };
 
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const data = (await response.json()) as {
-        error?: string;
-        message?: string;
-        mailto?: string;
-      };
-
-      if (!response.ok) {
-        setStatus("error");
-        setMessage(data.error || "Unable to submit the form.");
-        return;
-      }
-
-      setStatus("success");
-      setMessage(data.message || "Message received.");
-      setMailto(data.mailto || null);
-      event.currentTarget.reset();
-    } catch {
-      setStatus("error");
-      setMessage("Network error. Please try again or use email directly.");
+    if (payload.company) {
+      setStatus("idle");
+      return;
     }
+    setMailto(
+      `mailto:${siteConfig.email}?subject=${encodeURIComponent("[Portfolio] " + payload.subject)}&body=${encodeURIComponent("From: " + payload.name + " <" + payload.email + ">\n\n" + payload.message)}`,
+    );
+    setStatus("success");
+    setMessage(
+      "Your email draft is ready. Open your email app below and send it to complete your message.",
+    );
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4" noValidate>
+    <form onSubmit={onSubmit} className="space-y-4">
+      <p className="text-sm text-[var(--muted)]">
+        Prepare an email to Achint. You’ll review and send it in your email app.
+      </p>
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className="text-sm font-medium">
@@ -115,7 +104,7 @@ export function ContactForm() {
         disabled={status === "loading"}
         className="rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-white disabled:opacity-60"
       >
-        {status === "loading" ? "Sending…" : "Send message"}
+        {status === "loading" ? "Preparing…" : "Prepare email"}
       </button>
       {message && (
         <p

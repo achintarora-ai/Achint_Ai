@@ -50,3 +50,8 @@ next-env.d.ts
 # local research extraction scratch (runtime uses /public/research)
 /source-material/
 .firecrawl/
+/tmp/
+/output/
+
+.vercel
+.env*

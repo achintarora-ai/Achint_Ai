@@ -4,7 +4,6 @@ import { SiteImage } from "@/components/ui/site-image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArticleMarkdown } from "@/components/markdown/article-markdown";
-import { ResearchVisuals } from "@/components/research/research-charts";
 import { blogPosts, getAdjacentBlog, getBlogBySlug } from "@/data/blogs";
 import { formatDate, coverImageClass, isBlogPoster } from "@/lib/utils";
 
@@ -79,9 +78,6 @@ export default async function BlogPostPage({ params }: Props) {
           {post.summary}
         </p>
 
-        <div className="mt-8">
-          <ResearchVisuals slug={post.slug} />
-        </div>
 
         <div className="mt-8">
           <ArticleMarkdown content={post.excerptMarkdown} />

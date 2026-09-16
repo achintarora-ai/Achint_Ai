@@ -38,7 +38,7 @@ export function ProjectsPreview() {
                   />
                 ) : (
                   <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent-soft)] text-sm font-semibold text-[var(--accent)]">
-                    1AI
+                    {project.name.split(" ").map(word => word[0]).slice(0, 2).join("")}
                   </div>
                 )}
                 <div>

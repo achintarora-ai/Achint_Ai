@@ -1,7 +1,7 @@
 export function ArchitectureDiagram({ steps }: { steps: string[] }) {
   return (
     <div className="overflow-x-auto rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 md:p-6">
-      <ol className="flex min-w-[640px] flex-col gap-3 md:min-w-0">
+      <ol className="flex min-w-0 flex-col gap-3">
         {steps.map((step, index) => (
           <li key={step} className="flex items-stretch gap-3">
             <div className="flex w-10 flex-col items-center">

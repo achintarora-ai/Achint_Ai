@@ -131,14 +131,14 @@ export function NeuralSkillsGraph() {
   );
 
   return (
-    <div className="overflow-hidden rounded-[1.75rem] border border-[var(--border)] bg-[var(--surface)] shadow-[0_20px_60px_color-mix(in_oklab,var(--foreground)_8%,transparent)]">
+    <div className="cinematic-skills overflow-hidden rounded-[1.75rem] border border-[var(--border)] bg-[var(--surface)]">
       <div className="flex flex-wrap items-end justify-between gap-3 border-b border-[var(--border)] px-5 py-4 md:px-6">
         <div>
           <p className="text-xs font-semibold tracking-[0.14em] text-[var(--claude)]">
-            · SKILL GRAPH · LIVE MAP
+            THE CURIOSITY ATLAS / INTERACTIVE
           </p>
           <h2 className="mt-1 font-[family-name:var(--font-display)] text-2xl font-medium tracking-[-0.03em] md:text-3xl">
-            What I’m strong at
+            Follow a thread. Find a possibility.
           </h2>
         </div>
         <p className="max-w-md text-sm text-[var(--muted)]">
@@ -206,6 +206,12 @@ export function NeuralSkillsGraph() {
                 <g
                   key={node.id}
                   className="cursor-pointer"
+                  role="button"
+                  tabIndex={0}
+                  aria-label={node.label}
+                  aria-pressed={selected}
+                  onFocus={() => setActive(node.id)}
+                  onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setActive(node.id); } }}
                   onMouseEnter={() => setActive(node.id)}
                   onClick={() => setActive(node.id)}
                 >
@@ -239,7 +245,7 @@ export function NeuralSkillsGraph() {
                     x={node.x}
                     y={node.y + (node.group === "core" ? 7.8 : 6.4)}
                     textAnchor="middle"
-                    fontSize={node.group === "core" ? 2.6 : 2.2}
+                    fontSize={node.group === "core" ? 2.9 : 2.6}
                     fill="var(--foreground)"
                     style={{ fontWeight: 600 }}
                   >

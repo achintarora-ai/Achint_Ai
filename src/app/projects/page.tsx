@@ -6,7 +6,7 @@ import { projects } from "@/data/projects";
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Featured projects by Achint Pal Singh including WeKnowRights and 1AI — AI products spanning RAG, agents, backends, and cloud deployment.",
+    "Selected AI engineering work by Achint Pal Singh: legal AI, multimodal document intelligence, document auditing, and Azure retrieval.",
 };
 
 export default function ProjectsPage() {
@@ -38,7 +38,7 @@ export default function ProjectsPage() {
                 />
               ) : (
                 <div className="flex h-24 w-24 items-center justify-center rounded-full bg-[var(--accent-soft)] text-lg font-semibold text-[var(--accent)]">
-                  1AI
+                  {project.name.split(" ").map(word => word[0]).slice(0, 2).join("")}
                 </div>
               )}
             </div>

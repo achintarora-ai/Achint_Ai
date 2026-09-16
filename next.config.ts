@@ -6,6 +6,28 @@ const basePath = process.env.GITHUB_PAGES_BASE_PATH ?? "";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  ...(!isGithubPages
+    ? {
+        async headers() {
+          return [
+            {
+              source: "/api/:path*",
+              headers: [
+                {
+                  key: "Access-Control-Allow-Origin",
+                  value: "https://achintarora-ai.github.io",
+                },
+                {
+                  key: "Access-Control-Allow-Methods",
+                  value: "GET, POST, OPTIONS",
+                },
+                { key: "Access-Control-Allow-Headers", value: "Content-Type" },
+              ],
+            },
+          ];
+        },
+      }
+    : {}),
   devIndicators: false,
   ...(isGithubPages
     ? {

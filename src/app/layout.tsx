@@ -105,7 +105,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="dark h-full">
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+      className="light h-full"
+    >
       <body
         className={`${display.variable} ${sans.variable} ${mono.variable} flex min-h-full flex-col bg-[var(--background)] antialiased`}
       >
@@ -114,8 +119,16 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
         <ThemeProvider>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:p-4"
+          >
+            Skip to content
+          </a>
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main id="main-content" className="flex-1">
+            {children}
+          </main>
           <Footer />
           <FloatingChat />
         </ThemeProvider>

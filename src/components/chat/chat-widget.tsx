@@ -1,343 +1,280 @@
 "use client";
-
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
-import {
-  Bot,
-  Loader2,
-  Mail,
-  MessageCircle,
-  MessageSquarePlus,
-  RotateCcw,
-  Send,
-  X,
-} from "lucide-react";
-import { profile } from "@/data/profile";
-import { siteConfig } from "@/data/site-config";
-import { cn } from "@/lib/utils";
-
-type ChatMessage = {
+import ReactMarkdown from "react-markdown";
+import { ArrowUp, X, Plus, MessageCircle, Loader2, Square } from "lucide-react";
+import { apiPath, publicPath } from "@/lib/paths";
+type Message = {
   role: "user" | "assistant";
   content: string;
   sources?: { title: string; url: string }[];
+  mode?: string;
 };
-
-type Props = {
+const prompts = [
+  "What has Achint built?",
+  "Explain overfitting from the handbook",
+  "How does the two-tower project work?",
+  "What’s new in AI today?",
+];
+export function ChatWidget({
+  floating = true,
+  initiallyOpen = false,
+}: {
   floating?: boolean;
   initiallyOpen?: boolean;
-};
-
-const INITIAL_MESSAGE =
-  "Hi — I'm Ask Achint AI. Ask about Achint's experience, automation work, projects, or blogs. I'll recommend relevant posts and stick to portfolio evidence.";
-
-const FEEDBACK_MAILTO = `mailto:${siteConfig.email}?subject=${encodeURIComponent("Ask Achint AI — Feedback")}&body=${encodeURIComponent("Feedback on the portfolio assistant:\n\n")}`;
-
-export function ChatWidget({ floating = true, initiallyOpen = false }: Props) {
-  const [open, setOpen] = useState(initiallyOpen);
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [lastUserMessage, setLastUserMessage] = useState<string | null>(null);
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    { role: "assistant", content: INITIAL_MESSAGE },
-  ]);
-  const endRef = useRef<HTMLDivElement>(null);
-
+}) {
+  const [open, setOpen] = useState(initiallyOpen),
+    [input, setInput] = useState(""),
+    [messages, setMessages] = useState<Message[]>([]),
+    [loading, setLoading] = useState(false);
+  const inputId = useId(),
+    panelId = useId();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const controller = useRef<AbortController | null>(null);
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, open]);
-
-  function resetConversation() {
-    setMessages([{ role: "assistant", content: INITIAL_MESSAGE }]);
-    setLastUserMessage(null);
+    if (scrollRef.current)
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+  }, [messages, loading]);
+  useEffect(() => () => controller.current?.abort(), []);
+  function reset() {
+    controller.current?.abort();
+    setMessages([]);
+    setLoading(false);
     setInput("");
   }
-
-  async function submitWithHistory(
-    text: string,
-    baseMessages: ChatMessage[],
-    replaceHistory = false,
-  ) {
-    const trimmed = text.trim();
-    if (!trimmed || loading) return;
-
-    setLastUserMessage(trimmed);
-    const historyBase = replaceHistory ? baseMessages : messages;
-    const nextHistory = [
-      ...historyBase.filter((m) => m.role === "user" || m.role === "assistant"),
-      { role: "user" as const, content: trimmed },
-    ];
-    setMessages((prev) =>
-      replaceHistory
-        ? [...baseMessages, { role: "user", content: trimmed }]
-        : [...prev, { role: "user", content: trimmed }],
-    );
+  async function send(text: string) {
+    const question = text.trim();
+    if (!question || loading) return;
+    const prior = messages;
+    setMessages([...prior, { role: "user", content: question }]);
     setInput("");
     setLoading(true);
-
+    const abort = new AbortController();
+    controller.current = abort;
+    const timeout = setTimeout(() => abort.abort(), 35000);
     try {
-      const response = await fetch("/api/chat", {
+      const response = await fetch(apiPath("/api/chat"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          message: trimmed,
-          history: nextHistory.slice(-10),
+          message: question,
+          history: prior
+            .slice(-8)
+            .map((m) => ({ role: m.role, content: m.content.slice(0, 2000) })),
         }),
+        signal: abort.signal,
       });
-      const data = (await response.json()) as {
-        reply?: string;
-        error?: string;
-        sources?: { title: string; url: string }[];
-      };
-
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content:
-            data.reply ||
-            data.error ||
-            "Something went wrong. Please try again.",
-          sources: data.sources,
-        },
-      ]);
-    } catch {
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content:
-            "I couldn't reach the assistant service. Tap Retry below or email Achint directly.",
-        },
-      ]);
+      if (response.status === 429)
+        throw new Error("Please wait a minute before asking another question.");
+      if (!response.ok)
+        throw new Error(
+          "The assistant service is unavailable. Please try again.",
+        );
+      const data = await response.json();
+      if (!abort.signal.aborted)
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content: data.reply || data.error || "No answer available.",
+            sources: data.sources,
+            mode: data.mode,
+          },
+        ]);
+    } catch (error) {
+      if (!abort.signal.aborted)
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content:
+              error instanceof Error
+                ? error.message
+                : "Unable to reach the assistant.",
+          },
+        ]);
     } finally {
-      setLoading(false);
+      clearTimeout(timeout);
+      if (controller.current === abort) {
+        setLoading(false);
+        controller.current = null;
+      }
     }
   }
-
-  async function sendMessage(text: string) {
-    await submitWithHistory(text, messages);
-  }
-
-  function retryLastMessage() {
-    if (!lastUserMessage || loading) return;
-    const trimmed = [...messages];
-    if (trimmed.at(-1)?.role === "assistant") trimmed.pop();
-    if (trimmed.at(-1)?.role === "user") trimmed.pop();
-    void submitWithHistory(lastUserMessage, trimmed, true);
-  }
-
-  function onSubmit(event: FormEvent) {
+  function submit(event: FormEvent) {
     event.preventDefault();
-    void sendMessage(input);
+    void send(input);
   }
-
   const panel = (
-    <div
-      id="achint-ai-panel"
-      className={cn(
-        "flex h-[min(38rem,82vh)] w-full flex-col overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--background)] shadow-[0_24px_60px_rgba(0,0,0,0.45)]",
-        floating && "sm:w-[26rem] md:w-[28rem]",
-      )}
+    <section
+      id={panelId}
+      aria-label="Ask Achint AI conversation"
+      className={floating ? "chat-panel chat-floating" : "chat-panel chat-full"}
     >
-      <div className="border-b border-[var(--border)] bg-[var(--surface)] px-4 py-3">
-        <div className="flex items-start justify-between gap-3">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--accent-soft)]">
-              <Bot className="h-4 w-4 text-[var(--accent)]" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold">Ask Achint AI</p>
-              <p className="text-xs text-[var(--muted)]">
-                Portfolio answers · blog recommendations
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-1">
-            <button
-              type="button"
-              className="inline-flex items-center gap-1 rounded-md px-2 py-1.5 text-xs font-medium text-[var(--muted)] hover:bg-[var(--background)] hover:text-[var(--foreground)] disabled:opacity-40"
-              aria-label="Retry last question"
-              disabled={!lastUserMessage || loading}
-              onClick={retryLastMessage}
-            >
-              <RotateCcw className="h-3.5 w-3.5" />
-              Retry
-            </button>
-            <a
-              href={FEEDBACK_MAILTO}
-              className="inline-flex items-center gap-1 rounded-md px-2 py-1.5 text-xs font-medium text-[var(--muted)] hover:bg-[var(--background)] hover:text-[var(--accent)]"
-              aria-label="Send feedback by email"
-            >
-              <MessageSquarePlus className="h-3.5 w-3.5" />
-              Feedback
-            </a>
-            {floating && (
-              <button
-                type="button"
-                className="rounded-md p-1.5 text-[var(--muted)] hover:bg-[var(--background)]"
-                aria-label="Close chat"
-                onClick={() => setOpen(false)}
-              >
-                <X className="h-4 w-4" />
-              </button>
-            )}
-          </div>
+      <header className="chat-header">
+        <div>
+          <span className="chat-monogram">a.</span>
+          <span>
+            Ask Achint <small>Portfolio companion</small>
+          </span>
         </div>
-        <a
-          href={`mailto:${siteConfig.email}`}
-          className="mt-2 inline-flex items-center gap-1.5 text-xs text-[var(--accent)] hover:underline"
-        >
-          <Mail className="h-3.5 w-3.5" />
-          {siteConfig.email}
-        </a>
-      </div>
-
+        <div>
+          <button onClick={reset} title="New chat" aria-label="New chat">
+            <Plus size={19} />
+          </button>
+          {floating && (
+            <button onClick={() => setOpen(false)} aria-label="Close chat">
+              <X size={19} />
+            </button>
+          )}
+        </div>
+      </header>
       <div
-        className="flex-1 space-y-3 overflow-y-auto px-4 py-4"
+        ref={scrollRef}
+        className="chat-messages"
         role="log"
         aria-live="polite"
       >
-        {messages.map((message, index) => (
+        {!messages.length && (
+          <div className="chat-welcome">
+            <p className="eyebrow">A LITTLE CURIOSITY GOES A LONG WAY</p>
+            <h2>
+              What would you
+              <br />
+              <em>like to discover?</em>
+            </h2>
+            <p>
+              Explore my work, unpack a data science idea,
+              <br className="hidden sm:block" /> or find your next interesting
+              read.
+            </p>
+            <div className="chat-prompts">
+              {prompts.map((q) => (
+                <button key={q} onClick={() => void send(q)}>
+                  {q}
+                  <span>↗</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+        {messages.map((message, i) => (
           <div
-            key={`${message.role}-${index}`}
-            className={cn(
-              "max-w-[92%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed",
-              message.role === "user"
-                ? "ml-auto bg-[var(--accent)] text-[#06110c]"
-                : "bg-[var(--surface)] text-[var(--foreground)]",
-            )}
+            key={i}
+            className={message.role === "user" ? "chat-user" : "chat-answer"}
           >
-            <p className="whitespace-pre-wrap">{message.content}</p>
-            {message.sources && message.sources.length > 0 && (
-              <ul className="mt-2.5 space-y-1 border-t border-[var(--border)] pt-2">
-                {message.sources.slice(0, 4).map((source) => (
-                  <li key={`${source.url}-${source.title}`}>
-                    {source.url.startsWith("http") ? (
-                      <a
-                        href={source.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs text-[var(--accent)] underline-offset-2 hover:underline"
-                      >
-                        {source.title}
-                      </a>
-                    ) : (
-                      <Link
-                        href={source.url}
-                        className="text-xs text-[var(--accent)] underline-offset-2 hover:underline"
-                      >
-                        {source.title}
-                      </Link>
-                    )}
-                  </li>
-                ))}
-              </ul>
+            {message.role === "assistant" && (
+              <p className="chat-answer-label">
+                ACHINT AI{" "}
+                {message.mode === "reference" ||
+                message.mode === "degraded" ||
+                message.mode === "local-fallback"
+                  ? "· SOURCE EXCERPTS"
+                  : message.mode === "news"
+                    ? "· LIVE HEADLINES"
+                    : ""}
+              </p>
             )}
+            <ReactMarkdown
+              components={{
+                a: ({ href, children }) => (
+                  <a
+                    href={href?.startsWith("/") ? publicPath(href) : href}
+                    target={href?.startsWith("http") ? "_blank" : undefined}
+                    rel="noopener noreferrer"
+                  >
+                    {children}
+                  </a>
+                ),
+              }}
+            >
+              {message.content}
+            </ReactMarkdown>
+            {message.sources?.length ? (
+              <div className="chat-sources">
+                {message.sources.slice(0, 4).map((source) => (
+                  <a
+                    key={source.url + source.title}
+                    href={
+                      source.url.startsWith("/")
+                        ? publicPath(source.url)
+                        : source.url
+                    }
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {source.title} ↗
+                  </a>
+                ))}
+              </div>
+            ) : null}
           </div>
         ))}
         {loading && (
-          <p className="inline-flex items-center gap-2 text-xs text-[var(--muted)]">
-            <Loader2 className="h-3.5 w-3.5 animate-spin" /> Thinking…
+          <p className="chat-thinking">
+            <Loader2 size={15} className="animate-spin" /> Looking through the
+            references…
           </p>
         )}
-        <div ref={endRef} />
       </div>
-
-      <div className="space-y-3 border-t border-[var(--border)] bg-[var(--surface)] px-3 py-3">
-        <div>
-          <p className="mb-2 text-[10px] font-semibold tracking-[0.14em] text-[var(--muted)]">
-            RECOMMENDED BLOGS
-          </p>
-          <div className="flex gap-2 overflow-x-auto pb-1">
-            {profile.assistantBlogRecommendations.map((blog) => (
-              <Link
-                key={blog.slug}
-                href={`/blogs/${blog.slug}`}
-                className="min-w-[11rem] shrink-0 rounded-xl border border-[var(--border)] bg-[var(--background)] px-3 py-2 hover:border-[var(--accent)]"
-              >
-                <p className="text-xs font-semibold leading-snug text-[var(--foreground)]">
-                  {blog.title}
-                </p>
-                <p className="mt-1 line-clamp-2 text-[10px] leading-relaxed text-[var(--muted)]">
-                  {blog.hook}
-                </p>
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <p className="mb-2 text-[10px] font-semibold tracking-[0.14em] text-[var(--muted)]">
-            SUGGESTED QUESTIONS
-          </p>
-          <div className="flex gap-2 overflow-x-auto pb-1">
-            {profile.assistantSuggestedQuestions.map((question) => (
-              <button
-                key={question}
-                type="button"
-                className="shrink-0 rounded-full border border-[var(--border)] bg-[var(--background)] px-3 py-1.5 text-xs text-[var(--muted)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
-                onClick={() => void sendMessage(question)}
-                disabled={loading}
-              >
-                {question}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <form onSubmit={onSubmit} className="flex items-center gap-2">
-          <label htmlFor="achint-chat-input" className="sr-only">
-            Ask a question about Achint
+      <div className="chat-composer">
+        <form onSubmit={submit}>
+          <label htmlFor={inputId} className="sr-only">
+            Message Ask Achint
           </label>
-          <input
-            id="achint-chat-input"
+          <textarea
+            id={inputId}
+            rows={2}
             value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask about experience, blogs, automation…"
-            className="w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-3 py-2.5 text-sm outline-none ring-[var(--accent)] focus:ring-2"
             maxLength={1000}
-            disabled={loading}
+            placeholder="Ask anything about my work or the handbook…"
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (
+                e.key === "Enter" &&
+                !e.shiftKey &&
+                !e.nativeEvent.isComposing
+              ) {
+                e.preventDefault();
+                void send(input);
+              }
+            }}
           />
-          <button
-            type="submit"
-            className="rounded-xl bg-[var(--accent)] p-2.5 text-[#06110c] disabled:opacity-50"
-            aria-label="Send message"
-            disabled={loading || !input.trim()}
-          >
-            <Send className="h-4 w-4" />
-          </button>
+          {loading ? (
+            <button
+              type="button"
+              aria-label="Stop response"
+              onClick={() => {
+                controller.current?.abort();
+                setLoading(false);
+              }}
+            >
+              <Square size={15} />
+            </button>
+          ) : (
+            <button aria-label="Send message" disabled={!input.trim()}>
+              <ArrowUp size={20} />
+            </button>
+          )}
         </form>
-
-        <div className="flex items-center justify-between gap-2 text-[10px] text-[var(--muted)]">
-          <button
-            type="button"
-            className="hover:text-[var(--accent)]"
-            onClick={resetConversation}
-          >
-            New chat
-          </button>
-          <Link href="/blogs" className="hover:text-[var(--accent)]">
-            All blogs →
-          </Link>
-        </div>
+        <p>
+          Grounded in portfolio references. Check sources.{" "}
+          <Link href="/handbook">Read the handbook ↗</Link>
+        </p>
       </div>
-    </div>
+    </section>
   );
-
   if (!floating) return panel;
-
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-3">
+    <div className="chat-anchor">
       {open && panel}
       <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-4 py-3 text-sm font-medium text-[#06110c] shadow-lg hover:opacity-90"
+        className="chat-launcher"
         aria-expanded={open}
-        aria-controls="achint-ai-panel"
+        aria-controls={panelId}
+        onClick={() => setOpen((v) => !v)}
       >
-        <MessageCircle className="h-4 w-4" />
-        Ask Achint AI
+        <MessageCircle size={18} /> Ask Achint
       </button>
     </div>
   );
